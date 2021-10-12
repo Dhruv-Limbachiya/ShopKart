@@ -3,4 +3,6 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="text_forgot_password">Forgot Password ?</string>
+    <string name="text_login">Login</string>
+    <string name="text_dont_have_an_account">Don\'t have an account? <font color="#000000"><b>Register</b></font></string>
 </resources>
