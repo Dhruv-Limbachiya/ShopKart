@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Shop-Kart</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="text_forgot_password">Forgot Password ?</string>
+</resources>
