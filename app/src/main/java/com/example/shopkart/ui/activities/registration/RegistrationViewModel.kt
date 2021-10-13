@@ -57,6 +57,7 @@ class RegistrationViewModel : ViewModel() {
      */
     fun registerUser() {
         if(validateRegistrationDetails()) {
+            _resource.postValue(Resource.Loading())
             _resource.postValue(Resource.Success("Registration Successful"))
         }
     }

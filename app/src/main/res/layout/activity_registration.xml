@@ -26,8 +26,10 @@
                 android:paddingHorizontal="@dimen/dimen_8dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_back_arrow"
                     android:layout_width="@dimen/dimen_24dp"
                     android:layout_height="@dimen/dimen_24dp"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:src="@drawable/back_arrow_black" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -152,6 +154,7 @@
                     android:textSize="@dimen/dimen_16sp"
                     android:layout_marginTop="@dimen/dimen_16dp"
                     android:paddingStart="@dimen/dimen_4dp"
+                    android:checked="@={viewModel.observableIsTermAndConditions}"
                     android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

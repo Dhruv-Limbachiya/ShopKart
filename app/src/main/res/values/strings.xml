@@ -11,4 +11,5 @@
     <string name="text_terms_and_conditions">I agree to Terms and Conditions</string>
     <string name="text_register">Register</string>
     <string name="text_already_have_an_account">Already have an account? <font color="#000000"><b>Login</b></font></string>
+    <string name="text_please_wait">Please wait…</string>
 </resources>

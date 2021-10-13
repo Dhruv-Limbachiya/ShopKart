@@ -17,25 +17,32 @@ class RegistrationActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_registration)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
+
         mBinding.viewModel = mViewModel
+
         observeLiveEvents()
+
+        mBinding.tvAlreadyHaveAnAccount.setOnClickListener { onBackPressed() }
+
+        mBinding.ivBackArrow.setOnClickListener { onBackPressed() }
     }
 
     /**
      * Observe changes in the LiveData.
      */
-    fun observeLiveEvents() {
+    private fun observeLiveEvents() {
         mViewModel.resource.observe(this) { res ->
-            when(res) {
+            when (res) {
                 is Resource.Success -> {
-                    showSnackBar(mBinding.root,res.data ?: "Success",false)
+                    showSnackBar(mBinding.root, res.data ?: "Success", false)
+                    hideProgressbar()
                 }
                 is Resource.Error -> {
-                    showSnackBar(mBinding.root,res.message ?: "An unknown error occurred.",true)
+                    showSnackBar(mBinding.root, res.message ?: "An unknown error occurred.", true)
                 }
                 is Resource.Loading -> {
-                    // Todo : show progress bar.
+                    showProgressbar()
                 }
             }
         }
