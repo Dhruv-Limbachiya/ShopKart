@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.shopkart.ui.activities.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,6 +76,7 @@
                 android:fontFamily="@font/quicksand_medium"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:text="@={viewModel.observableEmail}"
                 tools:text="dhruv@gmail.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,6 +100,7 @@
                 android:fontFamily="@font/quicksand_medium"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
+                android:text="@={viewModel.observablePassword}"
                 tools:text="dhruv@gmail.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -119,6 +123,7 @@
             style="@style/ShopKartButtonStyle"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/text_login"
+            android:onClick="@{() -> viewModel.loginRegisteredUser()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />

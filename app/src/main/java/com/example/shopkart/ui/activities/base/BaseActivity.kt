@@ -1,4 +1,4 @@
-package com.example.shopkart.ui.activities
+package com.example.shopkart.ui.activities.base
 
 import android.app.Dialog
 import android.os.Build
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shopkart.R
 

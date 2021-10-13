@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.shopkart.R
 import com.example.shopkart.databinding.ActivityRegistrationBinding
-import com.example.shopkart.ui.activities.BaseActivity
+import com.example.shopkart.ui.activities.base.BaseActivity
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
 
@@ -37,9 +37,11 @@ class RegistrationActivity : BaseActivity() {
                 is Resource.Success -> {
                     showSnackBar(mBinding.root, res.data ?: "Success", false)
                     hideProgressbar()
+                    onBackPressed() // Back to the Login screen.
                 }
                 is Resource.Error -> {
                     showSnackBar(mBinding.root, res.message ?: "An unknown error occurred.", true)
+                    hideProgressbar()
                 }
                 is Resource.Loading -> {
                     showProgressbar()
