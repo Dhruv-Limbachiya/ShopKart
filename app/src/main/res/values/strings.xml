@@ -5,4 +5,10 @@
     <string name="text_forgot_password">Forgot Password ?</string>
     <string name="text_login">Login</string>
     <string name="text_dont_have_an_account">Don\'t have an account? <font color="#000000"><b>Register</b></font></string>
+    <string name="text_create_an_account">Create an account</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="text_terms_and_conditions">I agree to Terms and Conditions</string>
+    <string name="text_register">Register</string>
+    <string name="text_already_have_an_account">Already have an account? <font color="#000000"><b>Login</b></font></string>
 </resources>
