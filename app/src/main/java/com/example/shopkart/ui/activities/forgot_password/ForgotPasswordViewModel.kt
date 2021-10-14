@@ -1,4 +1,4 @@
-package com.example.shopkart.ui.activities.login
+package com.example.shopkart.ui.activities.forgot_password
 
 import android.util.Patterns
 import com.example.shopkart.data.firebase.FirebaseUtil
@@ -9,21 +9,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
- * Created By Dhruv Limbachiya on 13-10-2021 18:45.
+ * Created By Dhruv Limbachiya on 14-10-2021 14:30.
  */
-
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class ForgotPasswordViewModel @Inject constructor(
     private val firebaseUtil: FirebaseUtil
 ) : BaseViewModel() {
 
     var observableEmail = ObservableString()
-    var observablePassword = ObservableString()
 
     /**
-     * Method to validate user inputs for Login screen.
-     */
-    private fun validateLoginDetails(): Boolean {
+    * Method to validate user inputs for Login screen.
+    */
+    private fun validateEmail(): Boolean {
         return when {
             observableEmail.trimmed.isBlank() -> {
                 _status.postValue(Resource.Error("Please Enter Email"))
@@ -33,35 +31,25 @@ class LoginViewModel @Inject constructor(
                 _status.postValue(Resource.Error("Please Enter Valid Email Id"))
                 false
             }
-            observablePassword.trimmed.isBlank() -> {
-                _status.postValue(Resource.Error("Please Enter Password"))
-                false
-            }
-            observablePassword.trimmed.length < 6 -> {
-                _status.postValue(Resource.Error("Password should have at least 6 characters"))
-                false
-            }
             else -> true
         }
     }
 
     /**
-     * Method to login the registered user.
+     * Method responsible for sending an email to reset the user password.
      */
-    fun loginRegisteredUser() {
-        if (validateLoginDetails()) {
+    fun onForgotPasswordTextClick() {
+        if (validateEmail()) {
             _status.postValue(Resource.Loading())
-            firebaseUtil.firebaseAuth.signInWithEmailAndPassword(
+            firebaseUtil.firebaseAuth.sendPasswordResetEmail(
                 observableEmail.trimmed,
-                observablePassword.trimmed
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _status.postValue(Resource.Success("Login Successful"))
+                    _status.postValue(Resource.Success("Mail sent.Check your inbox."))
                 } else {
                     _status.postValue(Resource.Error(task.exception?.message.toString()))
                 }
             }
         }
     }
-
 }

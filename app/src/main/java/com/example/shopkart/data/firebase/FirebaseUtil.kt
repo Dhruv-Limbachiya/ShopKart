@@ -15,8 +15,6 @@ import kotlin.random.Random
 
 class FirebaseUtil {
 
-
-
     // Get the FirebaseAuth instance for authentication like login, sign up, forgot password & sign out.
     val firebaseAuth = FirebaseAuth.getInstance()
 

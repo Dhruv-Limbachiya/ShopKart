@@ -39,6 +39,7 @@
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:text="@string/text_create_an_account"
+                    android:letterSpacing="0.1"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 

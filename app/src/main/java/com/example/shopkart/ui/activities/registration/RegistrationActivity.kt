@@ -34,15 +34,15 @@ class RegistrationActivity : BaseActivity() {
      * Observe changes in the LiveData.
      */
     private fun observeLiveEvents() {
-        mViewModel.resource.observe(this) { res ->
-            when (res) {
+        mViewModel.status.observe(this) { status ->
+            when (status) {
                 is Resource.Success -> {
-                    showSnackBar(mBinding.root, res.data ?: "Success", false)
+                    showSnackBar(mBinding.root, status.data ?: "Success", false)
                     hideProgressbar()
                     onBackPressed() // Back to the Login screen.
                 }
                 is Resource.Error -> {
-                    showSnackBar(mBinding.root, res.message ?: "An unknown error occurred.", true)
+                    showSnackBar(mBinding.root, status.message ?: "An unknown error occurred.", true)
                     hideProgressbar()
                 }
                 is Resource.Loading -> {

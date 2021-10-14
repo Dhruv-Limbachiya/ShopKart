@@ -31,34 +31,34 @@ class RegistrationViewModel @Inject constructor(
      */
     private fun validateRegistrationDetails(): Boolean {
         if (observableFirstName.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter First Name"))
+            _status.postValue(Resource.Error("Please Enter First Name"))
             return false
         } else if (observableLastName.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter Last Name"))
+            _status.postValue(Resource.Error("Please Enter Last Name"))
             return false
         } else if (observableEmail.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter Email"))
+            _status.postValue(Resource.Error("Please Enter Email"))
             return false
         } else if (observablePassword.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter Password"))
+            _status.postValue(Resource.Error("Please Enter Password"))
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(observableEmail.trimmed).matches()) {
-            _resource.postValue(Resource.Error("Please Enter Valid Email Id"))
+            _status.postValue(Resource.Error("Please Enter Valid Email Id"))
             return false
         } else if (observablePassword.trimmed.length < 6) {
-            _resource.postValue(Resource.Error("Password should have at least 6 characters"))
+            _status.postValue(Resource.Error("Password should have at least 6 characters"))
             return false
         } else if (observableConfirmPassword.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter Confirm Password"))
+            _status.postValue(Resource.Error("Please Enter Confirm Password"))
             return false
         } else if (observableConfirmPassword.trimmed.length < 6) {
-            _resource.postValue(Resource.Error("Password should have at least 6 characters"))
+            _status.postValue(Resource.Error("Password should have at least 6 characters"))
             return false
         } else if (observablePassword.trimmed != observableConfirmPassword.trimmed) {
-            _resource.postValue(Resource.Error("Password doesn't match."))
+            _status.postValue(Resource.Error("Password doesn't match."))
             return false
         } else if (!observableIsTermAndConditions.get()) {
-            _resource.postValue(Resource.Error("Please agree to the terms and conditions"))
+            _status.postValue(Resource.Error("Please agree to the terms and conditions"))
             return false
         }
         return true
@@ -69,7 +69,7 @@ class RegistrationViewModel @Inject constructor(
      */
     fun registerUser() {
         if (validateRegistrationDetails()) {
-            _resource.postValue(Resource.Loading())
+            _status.postValue(Resource.Loading())
 
             firebaseUtil.firebaseAuth.createUserWithEmailAndPassword(
                 observableEmail.trimmed,
@@ -78,7 +78,7 @@ class RegistrationViewModel @Inject constructor(
                 if (task.isSuccessful) {
                     saveUserInFireStore()
                 } else {
-                    _resource.postValue(Resource.Error(task.exception?.message.toString()))
+                    _status.postValue(Resource.Error(task.exception?.message.toString()))
                 }
             }
         }
@@ -89,7 +89,7 @@ class RegistrationViewModel @Inject constructor(
      */
     private fun saveUserInFireStore() {
         val user = User(
-            uid = firebaseAuth.uid,
+            uid = firebaseUtil.firebaseAuth.uid,
             firstName = observableFirstName.trimmed,
             lastName = observableLastName.trimmed,
             email = observableEmail.trimmed
@@ -97,7 +97,7 @@ class RegistrationViewModel @Inject constructor(
         firebaseUtil.saveUser(user) {
             // Receive a callback after completion of save operation.
             // Post the status of operation in the _resource LiveData.
-            _resource.postValue(it)
+            _status.postValue(it)
             firebaseUtil.firebaseAuth.signOut() // Sign out the currently registered because user can only sign in using our login screen.
         }
     }
