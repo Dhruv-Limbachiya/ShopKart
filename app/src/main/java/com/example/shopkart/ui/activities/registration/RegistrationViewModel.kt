@@ -1,5 +1,6 @@
 package com.example.shopkart.ui.activities.registration
 
+import android.util.Patterns
 import androidx.databinding.ObservableBoolean
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
@@ -10,7 +11,8 @@ import com.example.shopkart.util.Resource
  */
 class RegistrationViewModel : BaseViewModel() {
 
-    var observableName = ObservableString()
+    var observableFirstName = ObservableString()
+    var observableLastName = ObservableString()
     var observableEmail = ObservableString()
     var observablePassword = ObservableString()
     var observableConfirmPassword = ObservableString()
@@ -20,14 +22,20 @@ class RegistrationViewModel : BaseViewModel() {
      * Method to validate user inputs for Registration screen.
      */
     private fun validateRegistrationDetails(): Boolean {
-        if (observableName.trimmed.isBlank()) {
-            _resource.postValue(Resource.Error("Please Enter Name"))
+        if (observableFirstName.trimmed.isBlank()) {
+            _resource.postValue(Resource.Error("Please Enter First Name"))
+            return false
+        } else if (observableLastName.trimmed.isBlank()) {
+            _resource.postValue(Resource.Error("Please Enter Last Name"))
             return false
         } else if (observableEmail.trimmed.isBlank()) {
             _resource.postValue(Resource.Error("Please Enter Email"))
             return false
         } else if (observablePassword.trimmed.isBlank()) {
             _resource.postValue(Resource.Error("Please Enter Password"))
+            return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(observableEmail.trimmed).matches()) {
+            _resource.postValue(Resource.Error("Please Enter Valid Email Id"))
             return false
         } else if (observablePassword.trimmed.length < 6) {
             _resource.postValue(Resource.Error("Password should have at least 6 characters"))

@@ -1,5 +1,6 @@
 package com.example.shopkart.ui.activities.login
 
+import android.util.Patterns
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
@@ -19,6 +20,10 @@ class LoginViewModel : BaseViewModel() {
         return when {
             observableEmail.trimmed.isBlank() -> {
                 _resource.postValue(Resource.Error("Please Enter Email"))
+                false
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(observableEmail.trimmed).matches() -> {
+                _resource.postValue(Resource.Error("Please Enter Valid Email Id"))
                 false
             }
             observablePassword.trimmed.isBlank() -> {
