@@ -8,7 +8,9 @@ import android.view.View
 import android.view.WindowInsets
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shopkart.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
 
     private var mDialog: Dialog? = null

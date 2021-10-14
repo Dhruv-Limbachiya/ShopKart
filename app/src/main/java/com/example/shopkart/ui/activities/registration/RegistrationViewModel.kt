@@ -2,14 +2,22 @@ package com.example.shopkart.ui.activities.registration
 
 import android.util.Patterns
 import androidx.databinding.ObservableBoolean
+import com.example.shopkart.data.firebase.FirebaseUtil
+import com.example.shopkart.data.model.User
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Created By Dhruv Limbachiya on 13-10-2021 12:34.
  */
-class RegistrationViewModel : BaseViewModel() {
+
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
+    private val firebaseUtil: FirebaseUtil
+) : BaseViewModel() {
 
     var observableFirstName = ObservableString()
     var observableLastName = ObservableString()
@@ -62,17 +70,35 @@ class RegistrationViewModel : BaseViewModel() {
     fun registerUser() {
         if (validateRegistrationDetails()) {
             _resource.postValue(Resource.Loading())
-            firebaseAuth.createUserWithEmailAndPassword(
+
+            firebaseUtil.firebaseAuth.createUserWithEmailAndPassword(
                 observableEmail.trimmed,
                 observablePassword.trimmed
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    firebaseAuth.signOut() // Sign out the currently registered because user can only sign in using our login screen.
-                    _resource.postValue(Resource.Success("Registration Successful"))
+                    saveUserInFireStore()
                 } else {
                     _resource.postValue(Resource.Error(task.exception?.message.toString()))
                 }
             }
+        }
+    }
+
+    /**
+     * Collect user info from the entered data and save the data in fireStore by delegating to the FirebaseUtil's saveUser() method.
+     */
+    private fun saveUserInFireStore() {
+        val user = User(
+            uid = firebaseAuth.uid,
+            firstName = observableFirstName.trimmed,
+            lastName = observableLastName.trimmed,
+            email = observableEmail.trimmed
+        )
+        firebaseUtil.saveUser(user) {
+            // Receive a callback after completion of save operation.
+            // Post the status of operation in the _resource LiveData.
+            _resource.postValue(it)
+            firebaseUtil.firebaseAuth.signOut() // Sign out the currently registered because user can only sign in using our login screen.
         }
     }
 }

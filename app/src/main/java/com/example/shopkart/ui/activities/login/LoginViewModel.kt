@@ -1,14 +1,21 @@
 package com.example.shopkart.ui.activities.login
 
 import android.util.Patterns
+import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Created By Dhruv Limbachiya on 13-10-2021 18:45.
  */
-class LoginViewModel : BaseViewModel() {
+
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val firebaseUtil: FirebaseUtil
+) : BaseViewModel() {
 
     var observableEmail = ObservableString()
     var observablePassword = ObservableString()

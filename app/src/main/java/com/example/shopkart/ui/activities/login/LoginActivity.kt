@@ -10,7 +10,9 @@ import com.example.shopkart.ui.activities.base.BaseActivity
 import com.example.shopkart.ui.activities.registration.RegistrationActivity
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
