@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.shopkart.R
 import com.example.shopkart.databinding.ActivityLoginBinding
+import com.example.shopkart.ui.activities.MainActivity
 import com.example.shopkart.ui.activities.base.BaseActivity
 import com.example.shopkart.ui.activities.forgot_password.ForgotPasswordActivity
 import com.example.shopkart.ui.activities.registration.RegistrationActivity
@@ -44,6 +45,7 @@ class LoginActivity : BaseActivity() {
                 is Resource.Success -> {
                     showSnackBar(mBinding.root, status.data ?: "Success", false)
                     hideProgressbar()
+                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
                 }
                 is Resource.Error -> {
                     showSnackBar(mBinding.root, status.message ?: "An unknown error occurred.", true)

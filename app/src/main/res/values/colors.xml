@@ -9,7 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#D3D3D3</color>
-    <color name="gray">#808080</color>
+    <color name="gray">#989898</color>
     <color name="color_error">#FF5722</color>
     <color name="color_green">#4CAF50</color>
 </resources>

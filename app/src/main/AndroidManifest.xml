@@ -37,7 +37,9 @@
 
         <activity
             android:name=".ui.activities.MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".ui.activities.login.LoginActivity"

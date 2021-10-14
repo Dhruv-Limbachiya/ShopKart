@@ -16,4 +16,10 @@
     <string name="text_please_wait">Please wait…</string>
     <string name="text_forgot_password_description">Enter your email address we\'ll send you an email to reset your password</string>
     <string name="text_submit">Submit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_complete_profile">Complete Profile</string>
+    <string name="hint_mobile">Mobile</string>
+    <string name="text_male">Male</string>
+    <string name="text_female">Female</string>
 </resources>
