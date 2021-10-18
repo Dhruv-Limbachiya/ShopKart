@@ -22,4 +22,8 @@
     <string name="hint_mobile">Mobile</string>
     <string name="text_male">Male</string>
     <string name="text_female">Female</string>
+    <string name="preference_name">Shopkart Preferences</string>
+    <string name="prefFirstName">firstName</string>
+    <string name="prefLastName">lastName</string>
+    <string name="prefEmail">email</string>
 </resources>

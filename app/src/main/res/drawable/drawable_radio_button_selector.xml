@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_checked="true">
+    <item android:state_checked="true" android:drawable="@drawable/drawable_button">
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary"/>
             <corners android:radius="@dimen/dimen_8dp"/>
         </shape>
     </item>

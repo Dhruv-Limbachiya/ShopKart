@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.shopkart.ui.activities.registration.RegistrationViewModel" />
+            type="com.example.shopkart.ui.fragments.profile.ProfileViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.ProfileFragment">
+        tools:context=".ui.fragments.profile.ProfileFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -41,7 +41,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dimen_16dp">
                 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_profile_image"
@@ -116,6 +117,7 @@
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
+                        android:enabled="false"
                         android:text="@={viewModel.observableEmail}"
                         tools:text="dhruv@gmail.com" />
 
@@ -139,7 +141,6 @@
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="10"
-                        android:text="@={viewModel.observableEmail}"
                         tools:text="96870296301" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -192,8 +193,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rg_gender"
-                    android:onClick="@{() -> viewModel.registerUser()}"
-                    style="@style/ShopKartButtonStyle" />
+                     style="@style/ShopKartButtonStyle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

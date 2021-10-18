@@ -1,20 +1,28 @@
 package com.example.shopkart.ui.activities.login
 
+import android.content.Context
 import android.util.Patterns
+import com.example.shopkart.R
+import com.example.shopkart.ShopKartApplication
 import com.example.shopkart.data.firebase.FirebaseUtil
+import com.example.shopkart.data.model.User
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
+import com.example.shopkart.util.SharePreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
  * Created By Dhruv Limbachiya on 13-10-2021 18:45.
  */
 
-@HiltViewModel
+ @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val firebaseUtil: FirebaseUtil
+    private val firebaseUtil: FirebaseUtil,
+    private val sharedPreferenceUtil: SharePreferenceUtil,
+    @ApplicationContext private val application: Context
 ) : BaseViewModel() {
 
     var observableEmail = ObservableString()
@@ -56,12 +64,34 @@ class LoginViewModel @Inject constructor(
                 observablePassword.trimmed
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    firebaseUtil.getUserDetails { user ->
+                        saveUserDetails(user)
+                    }
+
                     _status.postValue(Resource.Success("Login Successful"))
                 } else {
                     _status.postValue(Resource.Error(task.exception?.message.toString()))
                 }
             }
         }
+    }
+
+    /**
+     * Method to save user data into shared preferences.
+     */
+    private fun saveUserDetails(user: User) {
+        sharedPreferenceUtil.setString(
+            application.getString(R.string.prefFirstName),
+            user.firstName
+        )
+        sharedPreferenceUtil.setString(
+            application.getString(R.string.prefLastName),
+            user.lastName
+        )
+        sharedPreferenceUtil.setString(
+            application.getString(R.string.prefEmail),
+            user.email
+        )
     }
 
 }

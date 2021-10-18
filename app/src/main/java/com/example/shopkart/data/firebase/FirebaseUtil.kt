@@ -7,6 +7,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.random.Random
 
 /**
@@ -37,6 +39,27 @@ class FirebaseUtil {
                 Log.i(TAG, "saveUser: ${it.message.toString()}")
             }
     }
+
+    /**
+     * Method to get the user details from the "users" collection.
+     */
+    fun getUserDetails(user: (User) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { uid ->
+            fireStoreDb
+                .collection(USER_COLLECTION)
+                .document(uid)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    snapshot.toObject(User::class.java)?.let {
+                        user(it)
+                    }
+                }
+                .addOnFailureListener {
+                    Log.e(TAG,it.message.toString())
+                }
+        }
+    }
+
 
     companion object {
         const val USER_COLLECTION = "users"
