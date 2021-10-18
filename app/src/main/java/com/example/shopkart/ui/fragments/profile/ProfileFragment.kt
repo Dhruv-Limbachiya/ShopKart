@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.shopkart.R
-import com.example.shopkart.databinding.ActivityLoginBinding
 import com.example.shopkart.databinding.FragmentProfileBinding
-import com.example.shopkart.ui.activities.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,8 +20,22 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentProfileBinding.inflate(inflater,container, false)
+        mBinding = FragmentProfileBinding.inflate(inflater, container, false)
         mBinding.viewModel = mViewModel
         return mBinding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.ivProfileImage.setOnClickListener {
+            galleryLauncher.launch("image/*") // Launch the galleryLauncher with "image/*" type(only images).
+        }
+    }
+
+    // Content Launcher.
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            mBinding.ivProfileImage.setImageURI(uri)
+        }
 }
