@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.shopkart.ui.fragments.profile.ProfileViewModel" />
@@ -27,7 +28,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.1"
-                android:text="@string/text_complete_profile"
+                android:text="@string/text_profile"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="@color/white" />
@@ -43,19 +44,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/dimen_16dp">
-                
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_profile_image"
                     android:layout_width="@dimen/dimen_150dp"
                     android:layout_height="@dimen/dimen_150dp"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
                     android:layout_marginTop="@dimen/dimen_16dp"
-                    android:src="@drawable/profile_placeholder"
+                    android:adjustViewBounds="true"
                     android:background="@drawable/drawable_profile_image_background"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_first_name"
@@ -115,10 +116,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        android:enabled="false"
                         android:text="@={viewModel.observableEmail}"
                         tools:text="dhruv@gmail.com" />
 
@@ -142,6 +143,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="10"
+                        android:text="@={viewModel.observableMobile}"
                         tools:text="96870296301" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -164,7 +166,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/drawable_radio_button_selector"
                         android:button="@null"
-                        android:checked="true"
+                        android:checked="@={viewModel.observableGender}"
                         android:fontFamily="@font/quicksand_medium"
                         android:gravity="center"
                         android:text="@string/text_male"
@@ -189,12 +191,13 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_save_button"
-                    android:text="@string/text_register"
+                    style="@style/ShopKartButtonStyle"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/text_save"
+                    android:onClick="@{() -> viewModel.onProfileButtonClick()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rg_gender"
-                     style="@style/ShopKartButtonStyle" />
+                    app:layout_constraintTop_toBottomOf="@id/rg_gender" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -67,7 +67,6 @@ class LoginViewModel @Inject constructor(
                     firebaseUtil.getUserDetails { user ->
                         saveUserDetails(user)
                     }
-
                     _status.postValue(Resource.Success("Login Successful"))
                 } else {
                     _status.postValue(Resource.Error(task.exception?.message.toString()))

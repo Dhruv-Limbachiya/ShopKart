@@ -61,6 +61,25 @@ class FirebaseUtil {
     }
 
 
+    /**
+     * Updates the user details on FireStore.
+     */
+    fun updateUserProfile(userHashMap: HashMap<String,Any>, onResponse: (Resource<String>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { uid ->
+            fireStoreDb
+                .collection(USER_COLLECTION)
+                .document(uid)
+                .update(userHashMap)
+                .addOnSuccessListener {
+                    onResponse(Resource.Success("Profile updated!"))
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message.toString()))
+                    Log.i(TAG, "updateUserProfile: ${it.message.toString()}")
+                }
+        }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val TAG = "FirebaseUtil"

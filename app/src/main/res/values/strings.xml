@@ -18,7 +18,7 @@
     <string name="text_submit">Submit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_complete_profile">Complete Profile</string>
+    <string name="text_profile">Profile</string>
     <string name="hint_mobile">Mobile</string>
     <string name="text_male">Male</string>
     <string name="text_female">Female</string>
@@ -26,4 +26,7 @@
     <string name="prefFirstName">firstName</string>
     <string name="prefLastName">lastName</string>
     <string name="prefEmail">email</string>
+    <string name="text_save">Save</string>
+    <string name="prefMobile">mobile</string>
+    <string name="prefGender">gender</string>
 </resources>
