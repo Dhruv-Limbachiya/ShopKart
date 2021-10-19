@@ -14,7 +14,7 @@ data class User(
     var lastName: String = "",
     var email: String = "",
     var image: String = "",
-    var mobile: Int = 0,
+    var mobile: String = "",
     var gender: String = "",
     var profileCompleted: Int = 0
 )

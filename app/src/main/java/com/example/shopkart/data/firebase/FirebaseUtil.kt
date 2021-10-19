@@ -1,13 +1,19 @@
 package com.example.shopkart.data.firebase
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.example.shopkart.data.model.User
 import com.example.shopkart.util.Resource
+import com.example.shopkart.util.getExtension
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -22,6 +28,9 @@ class FirebaseUtil {
 
     // Get the Firebase Firestore instance for storing & retrieving data.
     private val fireStoreDb = Firebase.firestore
+
+    // Get the Firebase Storage reference.
+    private val cloudStorage = FirebaseStorage.getInstance().reference
 
     /**
      * Method to save the registered user info into Cloud Firestore.
@@ -65,6 +74,7 @@ class FirebaseUtil {
      * Updates the user details on FireStore.
      */
     fun updateUserProfile(userHashMap: HashMap<String,Any>, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
         firebaseAuth.currentUser?.uid?.let { uid ->
             fireStoreDb
                 .collection(USER_COLLECTION)
@@ -80,8 +90,27 @@ class FirebaseUtil {
         }
     }
 
+    /**
+     * Upload profile image on Firebase cloud storage.
+     */
+    fun uploadProfileImageToCloudStorage(imageUri: Uri,context: Context ,onResponse: (Resource<String>) -> Unit) {
+
+        cloudStorage
+            .child("$PROFILE_IMAGE_PATH/${System.currentTimeMillis()}.${getExtension(imageUri,context)}") // image path.
+            .putFile(imageUri) // uri to upload
+            .addOnSuccessListener {
+                it.metadata?.reference?.downloadUrl?.addOnSuccessListener { url -> // download the uploaded image url.
+                    onResponse(Resource.Success(data = url.toString()))
+                }
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message))
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
+        const val PROFILE_IMAGE_PATH = "profile_images"
         const val TAG = "FirebaseUtil"
     }
 }

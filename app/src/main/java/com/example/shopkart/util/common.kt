@@ -1,6 +1,10 @@
 package com.example.shopkart.util
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import android.view.View
+import android.webkit.MimeTypeMap
 import com.example.shopkart.R
 import com.google.android.material.snackbar.Snackbar
 
@@ -21,3 +25,9 @@ fun showSnackBar(view: View, message: String, isError: Boolean = false) {
 
     snackBar.show()
 }
+
+/**
+ * Utility function to get the extension from the uri.
+ */
+fun getExtension(imageUri: Uri, context: Context) =
+    MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(imageUri))

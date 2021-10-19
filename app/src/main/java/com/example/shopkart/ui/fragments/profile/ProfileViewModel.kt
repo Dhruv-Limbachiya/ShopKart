@@ -1,5 +1,7 @@
 package com.example.shopkart.ui.fragments.profile
 
+import android.content.Context
+import androidx.core.net.toUri
 import androidx.databinding.ObservableBoolean
 import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
@@ -8,25 +10,42 @@ import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.SharePreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val firebaseUtil: FirebaseUtil,
-    private val sharedPreferenceUtil: SharePreferenceUtil
+    private val sharedPreferenceUtil: SharePreferenceUtil,
+    @ApplicationContext private val application: Context
 ) : BaseViewModel() {
 
     var observableFirstName = ObservableString()
     var observableLastName = ObservableString()
     var observableEmail = ObservableString()
     var observableMobile = ObservableString()
-    var observableGender = ObservableBoolean()
-
+    var observableGenderMale = ObservableBoolean()
+    var observableGenderFemale = ObservableBoolean()
+    var observableProfileImageUri = ObservableString()
 
     init {
+        initObservables()
+    }
+
+    /**
+     * Initializes all the observables with shared preference values.
+     */
+    private fun initObservables() {
         observableFirstName.set(sharedPreferenceUtil.getString(R.string.prefFirstName))
         observableLastName.set(sharedPreferenceUtil.getString(R.string.prefLastName))
         observableEmail.set(sharedPreferenceUtil.getString(R.string.prefEmail))
+        observableMobile.set(sharedPreferenceUtil.getString(R.string.prefMobile))
+
+        if (sharedPreferenceUtil.getString(R.string.prefGender) == MALE) {
+            observableGenderMale.set(true)
+        } else {
+            observableGenderFemale.set(true)
+        }
     }
 
     /**
@@ -45,7 +64,7 @@ class ProfileViewModel @Inject constructor(
         } else if (observableMobile.trimmed.length != 10) {
             _status.postValue(Resource.Error("Please Enter Valid Mobile Number"))
             return false
-        } else if (!observableGender.get()) {
+        } else if (!observableGenderMale.get() && !observableGenderFemale.get() ) {
             _status.postValue(Resource.Error("Please Select Your Gender"))
             return false
         }
@@ -61,6 +80,14 @@ class ProfileViewModel @Inject constructor(
 
             val userHashMap = HashMap<String, Any>()
 
+            // If user selects/changed profile picture then uploads the selected/latest user profile image to cloud storage.
+            if(observableProfileImageUri.trimmed.isNotBlank()) {
+                firebaseUtil.uploadProfileImageToCloudStorage(observableProfileImageUri.trimmed.toUri(),application) {
+                    _status.postValue(it)
+                }
+                userHashMap[KEY_IMAGE] = observableProfileImageUri.trimmed
+            }
+
             // Check user has changed its firstName if that is the case then update firstName in fireStore by adding its value in HashMap.
             if (sharedPreferenceUtil.getString(R.string.prefFirstName) != (observableFirstName.trimmed)) {
                 userHashMap[KEY_FIRSTNAME] = observableFirstName.trimmed
@@ -73,14 +100,16 @@ class ProfileViewModel @Inject constructor(
 
             userHashMap[KEY_MOBILE] = observableMobile.trimmed
 
-            userHashMap[KEY_GENDER] = if (observableGender.get()) {
+            userHashMap[KEY_GENDER] = if (observableGenderMale.get()) {
                 MALE
             } else {
                 FEMALE
             }
 
+            userHashMap[KEY_PROFILE_COMPLETED] = 1 // 1 denotes profile completed.
+
             firebaseUtil.updateUserProfile(userHashMap) {
-                _status.postValue(it)
+                _status.postValue(it) // post the live status of update operation.
                 when (it) {
                     is Resource.Success -> {
                         updateUserSharedPreference(userHashMap)
@@ -111,6 +140,8 @@ class ProfileViewModel @Inject constructor(
         const val KEY_LASTNAME = "lastName"
         const val KEY_GENDER = "gender"
         const val KEY_MOBILE = "mobile"
+        const val KEY_IMAGE = "image"
+        const val KEY_PROFILE_COMPLETED = "profileCompleted"
         const val MALE = "male"
         const val FEMALE = "female"
     }

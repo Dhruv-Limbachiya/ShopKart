@@ -68,6 +68,7 @@ class ProfileFragment : BaseFragment() {
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             mBinding.ivProfileImage.setImageURI(uri)
+            mViewModel.observableProfileImageUri.set(uri.toString())
         }
 
 }

@@ -70,8 +70,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.4.2') {
         because("We need to authenticate user, store user and shop products data")
     }
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-auth' // Authentication (Login,Registration & Forgot Password).
+    implementation 'com.google.firebase:firebase-firestore-ktx' // FireStore database.
+    implementation 'com.google.firebase:firebase-storage' // Cloud storage for large size data like images,videos etc.
 
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.navigationVersion}"

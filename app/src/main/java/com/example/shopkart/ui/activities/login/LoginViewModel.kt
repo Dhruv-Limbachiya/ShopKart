@@ -66,8 +66,8 @@ class LoginViewModel @Inject constructor(
                 if (task.isSuccessful) {
                     firebaseUtil.getUserDetails { user ->
                         saveUserDetails(user)
+                        _status.postValue(Resource.Success("Login Successful"))
                     }
-                    _status.postValue(Resource.Success("Login Successful"))
                 } else {
                     _status.postValue(Resource.Error(task.exception?.message.toString()))
                 }
@@ -92,6 +92,16 @@ class LoginViewModel @Inject constructor(
         sharedPreferenceUtil.setString(
             application.getString(R.string.prefEmail),
             user.email
+        )
+
+        sharedPreferenceUtil.setString(
+            application.getString(R.string.prefMobile),
+            user.mobile
+        )
+
+        sharedPreferenceUtil.setString(
+            application.getString(R.string.prefGender),
+            user.gender
         )
     }
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.shopkart.ui.fragments.profile.ProfileViewModel" />
@@ -125,7 +124,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -175,7 +173,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/drawable_radio_button_selector"
                         android:button="@null"
-                        android:checked="@={viewModel.observableGender}"
+                        android:checked="@={viewModel.observableGenderMale}"
                         android:fontFamily="@font/quicksand_medium"
                         android:gravity="center"
                         android:text="@string/text_male"
@@ -193,6 +191,7 @@
                         android:fontFamily="@font/quicksand_medium"
                         android:gravity="center"
                         android:text="@string/text_female"
+                        android:checked="@={viewModel.observableGenderFemale}"
                         android:textColor="@color/radio_button_color"
                         android:textSize="@dimen/dimen_16sp" />
 
