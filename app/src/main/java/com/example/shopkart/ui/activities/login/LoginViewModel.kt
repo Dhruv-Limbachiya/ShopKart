@@ -79,6 +79,8 @@ class LoginViewModel @Inject constructor(
      * Method to save user data into shared preferences.
      */
     private fun saveUserDetails(user: User) {
+        sharedPreferenceUtil.clearData() // clear the outdated data
+
         sharedPreferenceUtil.setString(
             application.getString(R.string.prefFirstName),
             user.firstName

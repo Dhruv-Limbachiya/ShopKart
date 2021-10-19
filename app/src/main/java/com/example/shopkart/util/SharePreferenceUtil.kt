@@ -59,4 +59,8 @@ class SharePreferenceUtil (val context: Context) {
     fun setLong(prefName: Int, value: Long) {
         sharedPreferences.edit().putLong(context.resources.getString(prefName), value).apply()
     }
+
+    fun clearData() {
+        sharedPreferences.edit().clear().apply()
+    }
 }
