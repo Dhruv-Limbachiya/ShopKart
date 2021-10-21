@@ -30,4 +30,5 @@ object AppModule {
     @Singleton
     @Provides
     fun provideApplication() = ShopKartApplication()
+
 }
