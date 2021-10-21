@@ -30,4 +30,11 @@
     <string name="prefMobile">mobile</string>
     <string name="prefGender">gender</string>
     <string name="prefIsProfileCompleted">profileCompleted</string>
+    <string name="text_dashboard">Dashboard</string>
+    <string name="text_order">Order</string>
+    <string name="text_product">Product</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

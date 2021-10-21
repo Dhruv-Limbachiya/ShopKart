@@ -10,21 +10,25 @@
         android:name="com.example.shopkart.ui.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.shopkart.ui.fragments.dashboard.DashboardFragment"
-        android:label="DashboardFragment"
+        android:label="@string/text_dashboard"
         tools:layout="@layout/fragment_dashboard"/>
+
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.example.shopkart.ui.fragments.order.OrderFragment"
-        android:label="OrderFragment"
+        android:label="@string/text_order"
         tools:layout="@layout/fragment_order"/>
+
     <fragment
         android:id="@+id/productFragment"
         android:name="com.example.shopkart.ui.fragments.product.ProductFragment"
-        android:label="ProductFragment"
+        android:label="@string/text_product"
         tools:layout="@layout/fragment_product"/>
+
 
     <action
         android:id="@+id/action_global_profileFragment"
