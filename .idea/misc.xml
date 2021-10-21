@@ -5,7 +5,11 @@
       <map>
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_profile_image_background.xml" value="0.28055555555555556" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_radio_button_selector.xml" value="0.28055555555555556" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_dashboard.xml" value="0.3375" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_main.xml" value="0.23796296296296296" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_dashboard.xml" value="0.2074074074074074" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_order.xml" value="0.2074074074074074" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_product.xml" value="0.2074074074074074" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/drawable/drawable_button.xml" value="0.1" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/drawable/drawable_gradient_splash_background.xml" value="0.15" />

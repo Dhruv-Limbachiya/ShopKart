@@ -27,6 +27,7 @@ class LoginViewModel @Inject constructor(
 
     var observableEmail = ObservableString()
     var observablePassword = ObservableString()
+    var isProfileCompleted = 0;
 
     /**
      * Method to validate user inputs for Login screen.
@@ -103,6 +104,13 @@ class LoginViewModel @Inject constructor(
             application.getString(R.string.prefGender),
             user.gender
         )
+
+        sharedPreferenceUtil.setInteger(
+            R.string.prefIsProfileCompleted,
+            user.profileCompleted
+        )
+
+        isProfileCompleted = user.profileCompleted
     }
 
 }

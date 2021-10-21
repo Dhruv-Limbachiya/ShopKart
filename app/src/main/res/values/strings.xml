@@ -29,4 +29,5 @@
     <string name="text_save">Save</string>
     <string name="prefMobile">mobile</string>
     <string name="prefGender">gender</string>
+    <string name="prefIsProfileCompleted">profileCompleted</string>
 </resources>
