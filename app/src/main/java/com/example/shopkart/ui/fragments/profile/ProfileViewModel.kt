@@ -6,6 +6,7 @@ import androidx.databinding.ObservableBoolean
 import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.activities.base.BaseViewModel
+import com.example.shopkart.ui.fragments.profile.ProfileViewModel.*
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.SharePreferenceUtil
@@ -64,7 +65,7 @@ class ProfileViewModel @Inject constructor(
         } else if (observableMobile.trimmed.length != 10) {
             _status.postValue(Resource.Error("Please Enter Valid Mobile Number"))
             return false
-        } else if (!observableGenderMale.get() && !observableGenderFemale.get() ) {
+        } else if (!observableGenderMale.get() && !observableGenderFemale.get()) {
             _status.postValue(Resource.Error("Please Select Your Gender"))
             return false
         }
@@ -81,11 +82,16 @@ class ProfileViewModel @Inject constructor(
             val userHashMap = HashMap<String, Any>()
 
             // If user selects/changed profile picture then uploads the selected/latest user profile image to cloud storage.
-            if(observableProfileImageUri.trimmed.isNotBlank()) {
-                firebaseUtil.uploadProfileImageToCloudStorage(observableProfileImageUri.trimmed.toUri(),application) {
-                    _status.postValue(it)
+            if (observableProfileImageUri.trimmed.isNotBlank()) {
+                firebaseUtil.uploadProfileImageToCloudStorage(
+                    observableProfileImageUri.trimmed.toUri(),
+                    application
+                ) { response ->
+                    response.data?.let {
+                        userHashMap[KEY_IMAGE] = it
+                    }
+                    _status.postValue(response)
                 }
-                userHashMap[KEY_IMAGE] = observableProfileImageUri.trimmed
             }
 
             // Check user has changed its firstName if that is the case then update firstName in fireStore by adding its value in HashMap.
