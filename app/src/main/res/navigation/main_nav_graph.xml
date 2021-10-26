@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.shopkart.ui.fragments.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/text_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
@@ -29,9 +29,17 @@
         android:label="@string/text_product"
         tools:layout="@layout/fragment_product"/>
 
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.shopkart.ui.fragments.settings.SettingFragment"
+        tools:layout="@layout/fragment_setting"/>
 
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment" />
+
+    <action
+        android:id="@+id/action_global_settingFragment"
+        app:destination="@id/settingFragment" />
 
 </navigation>

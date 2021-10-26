@@ -14,26 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.profile.ProfileFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@drawable/drawable_gradient_splash_background"
-            android:gravity="center">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/quicksand_bold"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:letterSpacing="0.1"
-                android:text="@string/text_profile"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_heading"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_120dp"
+            android:background="@drawable/drawable_gradient_splash_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_settings_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/drawable_profile_image_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_heading">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="@dimen/dimen_120dp"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_margin="@dimen/dimen_8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_placeholder" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/tv_edit"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:includeFontPadding="false"
+            android:minWidth="50dp"
+            android:minHeight="18dp"
+            android:text="@string/text_edit"
+            android:textAllCaps="false"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_heading" />
+
+        <TextView
+            android:id="@+id/tv_settings_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Dhruv Limbachiya"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/dimen_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_settings_profile_image" />
+
+        <TextView
+            android:id="@+id/tv_settings_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="@string/text_male"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings_name" />
+
+        <TextView
+            android:id="@+id/tv_settings_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="dhruv@gmail.com"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings_gender" />
+
+        <TextView
+            android:id="@+id/tv_settings_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="9687029630"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings_email" />
+
+
+        <TextView
+            android:id="@+id/tv_settings_addresses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:background="@drawable/drawable_white_background"
+            android:elevation="@dimen/dimen_10dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="@dimen/dimen_16dp"
+            android:text="@string/text_addresses"
+            android:textSize="@dimen/dimen_18sp"
+            app:drawableRightCompat="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_settings_mobile" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_registration"
+            style="@style/ShopKartButtonStyle"
+            android:layout_margin="@dimen/dimen_32dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/text_logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_addresses" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

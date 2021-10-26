@@ -2,11 +2,14 @@ package com.example.shopkart.ui.fragments.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.example.shopkart.R
 import com.example.shopkart.databinding.FragmentProfileBinding
+import com.example.shopkart.ui.activities.DashboardActivity
 import com.example.shopkart.ui.fragments.base.BaseFragment
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
@@ -18,6 +21,11 @@ class ProfileFragment : BaseFragment() {
     private lateinit var mBinding: FragmentProfileBinding
 
     private val mViewModel: ProfileViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +42,11 @@ class ProfileFragment : BaseFragment() {
         mBinding.ivProfileImage.setOnClickListener {
             galleryLauncher.launch("image/*") // Launch the galleryLauncher with "image/*" type(only images).
         }
+
+        val dashboardActivity = requireActivity() as DashboardActivity
+
+        dashboardActivity.supportActionBar?.setDisplayShowHomeEnabled(false);
+        dashboardActivity.supportActionBar?.setHomeButtonEnabled(false);
 
         observeLiveEvents()
 
@@ -71,4 +84,9 @@ class ProfileFragment : BaseFragment() {
             mViewModel.observableProfileImageUri.set(uri.toString())
         }
 
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.clear()
+    }
 }
