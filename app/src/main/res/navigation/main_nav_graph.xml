@@ -32,7 +32,9 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.shopkart.ui.fragments.settings.SettingFragment"
-        tools:layout="@layout/fragment_setting"/>
+        tools:layout="@layout/fragment_setting">
+
+    </fragment>
 
     <action
         android:id="@+id/action_global_profileFragment"

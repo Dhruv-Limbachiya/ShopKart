@@ -1,8 +1,11 @@
 package com.example.shopkart.ui.fragments.settings
 
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shopkart.R
+import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.fragments.profile.ProfileViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.SharePreferenceUtil
@@ -14,7 +17,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val sharedPreferenceUtil: SharePreferenceUtil
+    private val sharedPreferenceUtil: SharePreferenceUtil,
+    private val firebaseUtil: FirebaseUtil
 ) : ViewModel(){
 
     var observableImage = ObservableString()
@@ -23,6 +27,13 @@ class SettingViewModel @Inject constructor(
     var observableMobile = ObservableString()
     var observableGender = ObservableString()
 
+    // Tracks the edit button clicks
+    private var _onEditClick = MutableLiveData<Boolean>()
+    val onEditClick: LiveData<Boolean> = _onEditClick
+
+    // Tracks the logout button clicks.
+    private var _onLogoutClick = MutableLiveData<Boolean>()
+    val onLogoutClick: LiveData<Boolean> = _onLogoutClick
 
     init {
         initObservables()
@@ -37,5 +48,28 @@ class SettingViewModel @Inject constructor(
         observableEmail.set(sharedPreferenceUtil.getString(R.string.prefEmail))
         observableMobile.set(sharedPreferenceUtil.getString(R.string.prefMobile))
         observableGender.set(sharedPreferenceUtil.getString(R.string.prefGender))
+    }
+
+    /**
+     * Invokes when user tap on edit button.
+     */
+    fun onEditButtonClick() {
+        _onEditClick.postValue(true)
+    }
+
+    /**
+     * Invokes when user tap on logout button.
+     */
+    fun onLogoutButtonClick() {
+        firebaseUtil.firebaseAuth.signOut()
+        _onLogoutClick.postValue(true)
+    }
+
+    /**
+     * Method will reset all the click events
+     */
+    fun resetClicks() {
+        _onEditClick.postValue(false)
+        _onLogoutClick.postValue(false)
     }
 }

@@ -67,6 +67,7 @@ class DashboardActivity : BaseActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.settingFragment -> {
+                    changeTitle(getString(R.string.text_settings))
                     hideBottomBar()
                 }
 

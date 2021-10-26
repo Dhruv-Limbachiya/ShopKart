@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
 import com.example.shopkart.databinding.FragmentProfileBinding
 import com.example.shopkart.ui.activities.DashboardActivity
@@ -43,13 +44,7 @@ class ProfileFragment : BaseFragment() {
             galleryLauncher.launch("image/*") // Launch the galleryLauncher with "image/*" type(only images).
         }
 
-        val dashboardActivity = requireActivity() as DashboardActivity
-
-        dashboardActivity.supportActionBar?.setDisplayShowHomeEnabled(false);
-        dashboardActivity.supportActionBar?.setHomeButtonEnabled(false);
-
         observeLiveEvents()
-
     }
 
     /**
@@ -61,6 +56,7 @@ class ProfileFragment : BaseFragment() {
                 is Resource.Success -> {
                     showSnackBar(mBinding.root, status.data ?: "Success", false)
                     hideProgressbar()
+                    this.findNavController().popBackStack() // Back to the previous fragment.
                 }
                 is Resource.Error -> {
                     showSnackBar(

@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@drawable/drawable_gradient_splash_background"
-        android:gravity="center"
         android:theme="@style/ToolbarColoredBackArrow"
+        app:contentInsetLeft="@dimen/dimen_16dp"
+        app:contentInsetEnd="@dimen/dimen_32dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -29,5 +30,7 @@
             android:textColor="@color/white" />
 
     </androidx.appcompat.widget.Toolbar>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
