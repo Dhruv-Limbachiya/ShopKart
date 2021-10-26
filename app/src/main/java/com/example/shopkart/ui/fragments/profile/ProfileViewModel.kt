@@ -138,6 +138,8 @@ class ProfileViewModel @Inject constructor(
         sharedPreferenceUtil.setString(R.string.prefMobile, observableMobile.trimmed)
         sharedPreferenceUtil.setString(R.string.prefEmail, observableEmail.trimmed)
         sharedPreferenceUtil.setString(R.string.prefGender, userHashMap[KEY_GENDER].toString())
+        sharedPreferenceUtil.setString(R.string.prefFullName, "${observableFirstName.trimmed} ${observableLastName.trimmed}".toString())
+        sharedPreferenceUtil.setString(R.string.prefProfileImagePath, observableProfileImageUri.trimmed)
     }
 
 

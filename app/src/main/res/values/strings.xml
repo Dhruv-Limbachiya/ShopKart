@@ -42,4 +42,6 @@
     <string name="text_edit">Edit</string>
     <string name="text_addresses">Addresses</string>
     <string name="text_logout">Logout</string>
+    <string name="prefFullName">prefFullName</string>
+    <string name="prefProfileImagePath">prefProfileImagePath</string>
 </resources>

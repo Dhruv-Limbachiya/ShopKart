@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.shopkart.ui.fragments.settings.SettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,8 +37,9 @@
                 android:layout_height="@dimen/dimen_120dp"
                 android:layout_margin="@dimen/dimen_8dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_placeholder" />
+                android:scaleType="fitXY"
+                app:setImageUrl="@{viewModel.observableImage}"
+                tools:src="@drawable/profile_placeholder" />
 
         </LinearLayout>
 
@@ -62,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_24dp"
             android:fontFamily="@font/quicksand_bold"
-            android:text="Dhruv Limbachiya"
+            android:text="@{viewModel.observableFullName}"
+            tools:text="Dhruv Limbachiya"
             android:textColor="@color/primary"
             android:textSize="@dimen/dimen_20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4dp"
             android:fontFamily="@font/quicksand_medium"
-            android:text="@string/text_male"
+            android:text="@{viewModel.observableGender}"
+            tools:text="@string/text_male"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4dp"
             android:fontFamily="@font/quicksand_medium"
-            android:text="dhruv@gmail.com"
+            android:text="@{viewModel.observableEmail}"
+            tools:text="dhruv@gmail.com"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4dp"
             android:fontFamily="@font/quicksand_medium"
-            android:text="9687029630"
+            android:text="@{viewModel.observableMobile}"
+            tools:text="9687029630"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
