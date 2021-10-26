@@ -56,7 +56,7 @@ class ProfileFragment : BaseFragment() {
                 is Resource.Success -> {
                     showSnackBar(mBinding.root, status.data ?: "Success", false)
                     hideProgressbar()
-                    this.findNavController().popBackStack() // Back to the previous fragment.
+//                    this.findNavController().popBackStack() // Back to the previous fragment.
                 }
                 is Resource.Error -> {
                     showSnackBar(

@@ -41,7 +41,8 @@
                         android:scaleType="centerCrop"
                         android:adjustViewBounds="true"
                         android:layout_margin="@dimen/dimen_8dp"
-                        android:src="@drawable/profile_placeholder"
+                        app:setImageUrl="@{viewModel.observableProfileImageUri}"
+                        tools:src="@drawable/profile_placeholder"
                          />
 
                 </LinearLayout>

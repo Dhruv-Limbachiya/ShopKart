@@ -3,6 +3,7 @@ package com.example.shopkart.ui.fragments.profile
 import android.content.Context
 import androidx.core.net.toUri
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.viewModelScope
 import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.activities.base.BaseViewModel
@@ -12,6 +13,8 @@ import com.example.shopkart.util.Resource
 import com.example.shopkart.util.SharePreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +40,7 @@ class ProfileViewModel @Inject constructor(
      * Initializes all the observables with shared preference values.
      */
     private fun initObservables() {
+        observableProfileImageUri.set(sharedPreferenceUtil.getString(R.string.prefProfileImagePath))
         observableFirstName.set(sharedPreferenceUtil.getString(R.string.prefFirstName))
         observableLastName.set(sharedPreferenceUtil.getString(R.string.prefLastName))
         observableEmail.set(sharedPreferenceUtil.getString(R.string.prefEmail))
@@ -81,19 +85,6 @@ class ProfileViewModel @Inject constructor(
 
             val userHashMap = HashMap<String, Any>()
 
-            // If user selects/changed profile picture then uploads the selected/latest user profile image to cloud storage.
-            if (observableProfileImageUri.trimmed.isNotBlank()) {
-                firebaseUtil.uploadProfileImageToCloudStorage(
-                    observableProfileImageUri.trimmed.toUri(),
-                    application
-                ) { response ->
-                    response.data?.let {
-                        userHashMap[KEY_IMAGE] = it
-                    }
-                    _status.postValue(response)
-                }
-            }
-
             // Check user has changed its firstName if that is the case then update firstName in fireStore by adding its value in HashMap.
             if (sharedPreferenceUtil.getString(R.string.prefFirstName) != (observableFirstName.trimmed)) {
                 userHashMap[KEY_FIRSTNAME] = observableFirstName.trimmed
@@ -112,20 +103,39 @@ class ProfileViewModel @Inject constructor(
                 FEMALE
             }
 
-            userHashMap[KEY_PROFILE_COMPLETED] = 1 // 1 denotes profile completed.
+            // If user selects/changed profile picture then uploads the selected/latest user profile image to cloud storage.
+            if (observableProfileImageUri.trimmed.isNotBlank()) {
 
-            firebaseUtil.updateUserProfile(userHashMap) {
-                _status.postValue(it) // post the live status of update operation.
-                when (it) {
-                    is Resource.Success -> {
-                        updateUserSharedPreference(userHashMap)
+                userHashMap[KEY_PROFILE_COMPLETED] = 1 // 1 denotes profile completed.
+
+                firebaseUtil.uploadProfileImageToCloudStorage(
+                    observableProfileImageUri.trimmed.toUri(),
+                    application
+                ) { response ->
+                    response.data?.let {
+                        userHashMap[KEY_IMAGE] = it
                     }
-                    else -> {
-                        /* NO OPERATION */
-                    }
+                    _status.postValue(response)
+                    updateUserDetails(userHashMap)
+                }
+            } else {
+                updateUserDetails(userHashMap)
+            }
+        }
+
+    }
+
+    private fun updateUserDetails(userHashMap: HashMap<String, Any>) {
+        firebaseUtil.updateUserProfile(userHashMap) {
+            when (it) {
+                is Resource.Success -> {
+                    updateUserSharedPreference(userHashMap)
+                }
+                else -> {
+                    /* NO OPERATION */
                 }
             }
-
+            _status.postValue(it) // post the live status of update operation.
         }
     }
 
@@ -133,13 +143,19 @@ class ProfileViewModel @Inject constructor(
      * Update the user profile details in SharedPreferences.
      */
     private fun updateUserSharedPreference(userHashMap: HashMap<String, Any>) {
+        sharedPreferenceUtil.setString(
+            R.string.prefProfileImagePath,
+            observableProfileImageUri.trimmed
+        )
+        sharedPreferenceUtil.setString(
+            R.string.prefFullName,
+            "${observableFirstName.trimmed} ${observableLastName.trimmed}"
+        )
         sharedPreferenceUtil.setString(R.string.prefFirstName, observableFirstName.trimmed)
         sharedPreferenceUtil.setString(R.string.prefLastName, observableLastName.trimmed)
         sharedPreferenceUtil.setString(R.string.prefMobile, observableMobile.trimmed)
         sharedPreferenceUtil.setString(R.string.prefEmail, observableEmail.trimmed)
         sharedPreferenceUtil.setString(R.string.prefGender, userHashMap[KEY_GENDER].toString())
-        sharedPreferenceUtil.setString(R.string.prefFullName, "${observableFirstName.trimmed} ${observableLastName.trimmed}".toString())
-        sharedPreferenceUtil.setString(R.string.prefProfileImagePath, observableProfileImageUri.trimmed)
     }
 
 

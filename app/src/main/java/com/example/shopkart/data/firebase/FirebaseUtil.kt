@@ -94,7 +94,7 @@ class FirebaseUtil {
      * Upload profile image on Firebase cloud storage.
      */
     fun uploadProfileImageToCloudStorage(imageUri: Uri,context: Context ,onResponse: (Resource<String>) -> Unit) {
-
+        onResponse(Resource.Loading())
         cloudStorage
             .child("$PROFILE_IMAGE_PATH/${System.currentTimeMillis()}.${getExtension(imageUri,context)}") // image path.
             .putFile(imageUri) // uri to upload
