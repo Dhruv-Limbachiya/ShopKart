@@ -15,7 +15,11 @@
         android:id="@+id/dashboardFragment"
         android:name="com.example.shopkart.ui.fragments.dashboard.DashboardFragment"
         android:label="@string/text_dashboard"
-        tools:layout="@layout/fragment_dashboard"/>
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/orderFragment"
@@ -31,6 +35,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
+        android:label="@string/text_settings"
         android:name="com.example.shopkart.ui.fragments.settings.SettingFragment"
         tools:layout="@layout/fragment_setting">
 

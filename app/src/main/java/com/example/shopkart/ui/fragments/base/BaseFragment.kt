@@ -3,10 +3,12 @@ package com.example.shopkart.ui.fragments.base
 import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.shopkart.R
+import com.example.shopkart.ui.activities.DashboardActivity
 
 open class BaseFragment : Fragment() {
 
     private var mDialog: Dialog? = null
+//    val mActivity = requireActivity() as DashboardActivity
 
     /**
     * Method to show progress bar dialog.

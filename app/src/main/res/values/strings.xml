@@ -44,4 +44,5 @@
     <string name="text_logout">Logout</string>
     <string name="prefFullName">prefFullName</string>
     <string name="prefProfileImagePath">prefProfileImagePath</string>
+    <string name="text_add_product">Add Product</string>
 </resources>

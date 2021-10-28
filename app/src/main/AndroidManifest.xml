@@ -34,8 +34,7 @@
         <activity
             android:name=".ui.activities.DashboardActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.login.LoginActivity"
             android:exported="true"
