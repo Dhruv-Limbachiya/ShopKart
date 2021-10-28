@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.shopkart.ui.fragments.add_product.AddProductViewModel" />
     </data>
 
     <ScrollView
@@ -19,6 +21,8 @@
                 android:id="@+id/iv_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_200dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
                 android:background="@color/product_image_placeholder_color"
                 tools:ignore="MissingConstraints" />
 
@@ -54,6 +58,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
+                        android:text="@={viewModel.observableProductTitle}"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -71,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
+                        android:text="@={viewModel.observableProductPrice}"
                         android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +95,7 @@
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
                         android:lines="3"
+                        android:text="@={viewModel.observableProductDescription}"
                         android:inputType="textMultiLine" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -106,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:imeOptions="actionNext"
+                        android:text="@={viewModel.observableProductQuantity}"
                         android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +123,7 @@
                     style="@style/ShopKartButtonStyle"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/text_save"
+                    android:onClick="@{() -> viewModel.onProductSaveButtonClick()}"
                     android:layout_marginTop="@dimen/dimen_32dp"
                     android:layout_marginStart="0dp"
                     android:layout_width="match_parent" />

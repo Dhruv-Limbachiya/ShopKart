@@ -8,12 +8,12 @@
         android:title="@string/text_dashboard" />
 
     <item
-        android:id="@+id/orderFragment"
-        android:icon="@drawable/ic_order"
-        android:title="@string/text_order" />
-
-    <item
         android:id="@+id/productFragment"
         android:icon="@drawable/ic_product"
         android:title="@string/text_product" />
+
+    <item
+        android:id="@+id/orderFragment"
+        android:icon="@drawable/ic_order"
+        android:title="@string/text_order" />
 </menu>
