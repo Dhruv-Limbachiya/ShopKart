@@ -68,7 +68,10 @@ class AddProductFragment : BaseFragment() {
     // Content Launcher.
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            mBinding.ivProductImage.setImageURI(uri)
-            mViewModel.observableProductImageUri.set(uri.toString())
+            uri?.let {
+                mBinding.ivProductImage.setImageURI(it)
+                mViewModel.observableProductImageUri.set(it.toString())
+                mViewModel.observableImageAttached.set(true)
+            }
         }
 }

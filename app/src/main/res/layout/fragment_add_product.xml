@@ -28,9 +28,10 @@
 
             <ImageView
                 android:id="@+id/iv_camera_icon"
-                android:layout_width="@dimen/dimen_32dp"
-                android:layout_height="@dimen/dimen_32dp"
-                app:srcCompat="@drawable/ic_add_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{viewModel.observableImageAttached ? @drawable/ic_edit : @drawable/ic_add_camera}"
+                tools:src="@drawable/ic_add_camera"
                 android:layout_margin="@dimen/dimen_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/iv_product_image"

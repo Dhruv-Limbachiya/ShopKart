@@ -1,11 +1,7 @@
 package com.example.shopkart.ui.fragments.add_product
 
-import androidx.core.net.toUri
-import androidx.databinding.ObservableFloat
-import androidx.databinding.ObservableInt
-import com.example.shopkart.R
+import androidx.databinding.ObservableBoolean
 import com.example.shopkart.ui.activities.base.BaseViewModel
-import com.example.shopkart.ui.fragments.profile.ProfileViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 
@@ -19,7 +15,7 @@ class AddProductViewModel : BaseViewModel() {
     var observableProductPrice = ObservableString()
     var observableProductDescription = ObservableString()
     var observableProductQuantity = ObservableString()
-
+    var observableImageAttached = ObservableBoolean()
 
     /**
      * Validates the user input for Add Product screen.
@@ -63,6 +59,7 @@ class AddProductViewModel : BaseViewModel() {
      */
     fun onProductSaveButtonClick() {
         if (validateProductDetails()) {
+
             _status.postValue(Resource.Success("Product data saved."))
         }
     }

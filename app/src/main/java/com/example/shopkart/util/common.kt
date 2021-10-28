@@ -6,6 +6,7 @@ import android.content.Context
 import android.net.Uri
 import android.view.View
 import android.webkit.MimeTypeMap
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
