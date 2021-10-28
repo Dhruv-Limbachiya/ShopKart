@@ -50,7 +50,7 @@ class ProductFragment : BaseFragment() {
         when(item.itemId) {
             // Navigates to the [SettingFragment] on setting menu item click
             R.id.menu_add_product -> {
-                findNavController().navigate(R.id.action_global_settingFragment)
+                findNavController().navigate(R.id.action_productFragment_to_addProductFragment)
                 return true
             }
         }

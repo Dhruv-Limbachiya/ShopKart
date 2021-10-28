@@ -45,4 +45,9 @@
     <string name="prefFullName">prefFullName</string>
     <string name="prefProfileImagePath">prefProfileImagePath</string>
     <string name="text_add_product">Add Product</string>
+    <string name="add_product_image">Add product image</string>
+    <string name="hint_product_title">Product Title</string>
+    <string name="hint_product_price">Product Price (₹)</string>
+    <string name="hint_product_description">Product Description</string>
+    <string name="hint_product_quantity">Product Quantity</string>
 </resources>

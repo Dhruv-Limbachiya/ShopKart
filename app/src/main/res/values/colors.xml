@@ -12,4 +12,5 @@
     <color name="gray">#989898</color>
     <color name="color_error">#FF5722</color>
     <color name="color_green">#4CAF50</color>
+    <color name="product_image_placeholder_color">#e1e1e1</color>
 </resources>

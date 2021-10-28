@@ -65,7 +65,7 @@ class DashboardActivity : BaseActivity() {
     private fun handleDestinationChangeEvents() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.settingFragment -> hideBottomBar()
+                R.id.settingFragment,R.id.addProductFragment -> hideBottomBar()
 
                 R.id.dashboardFragment,R.id.productFragment,R.id.orderFragment -> showBottomBar()
 
