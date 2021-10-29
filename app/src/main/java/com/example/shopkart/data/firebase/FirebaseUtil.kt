@@ -150,6 +150,33 @@ class FirebaseUtil {
         }
     }
 
+    /**
+     * Fetches all the products.
+     */
+    fun getAllProductsFromFireStore(onResponse: (Resource<Any>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let {
+            onResponse(Resource.Loading())
+            fireStoreDb.collection(PRODUCT_COLLECTION)
+                .get()
+                .addOnSuccessListener {
+                    val documents = it.documents // Retrieve all the documents.
+                    val products = ArrayList<Product>()
+                    for(doc in documents) {
+                        val product = doc.toObject(Product::class.java)
+                        if (product != null) {
+                            product.id = doc.id // Assigns doc id as product id in product object.
+                            products.add(product)
+                        }
+                    }
+
+                    onResponse(Resource.Success(products)) // indicates the products received successfully.
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message)) // failed to retrieve products.
+                }
+        }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"

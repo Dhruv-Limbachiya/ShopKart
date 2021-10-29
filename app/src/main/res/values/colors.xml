@@ -12,7 +12,9 @@
     <color name="gray">#989898</color>
     <color name="color_error">#FF5722</color>
     <color name="color_green">#4CAF50</color>
-    <color name="product_image_placeholder_color">#e1e1e1</color>
+    <color name="product_image_placeholder_color">#E1E1E1</color>
     <color name="white_color_shade1">#F8F8F8</color>
     <color name="item_value_text_color">#545353</color>
+    <color name="dashboard_item_details_bg">#F3F3F3</color>
+    <color name="colorBorder">#E8E6E6</color>
 </resources>

@@ -2,17 +2,32 @@ package com.example.shopkart.ui.fragments.dashboard
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
+import com.example.shopkart.data.model.Product
 import com.example.shopkart.databinding.FragmentDashboardBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
+import com.example.shopkart.ui.fragments.dashboard.adapter.DashboardProductsAdapter
+import com.example.shopkart.util.Resource
+import com.example.shopkart.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Created By Dhruv Limbachiya on 21-10-2021 10:56.
  */
+
+@AndroidEntryPoint
 class DashboardFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentDashboardBinding
+
+    private val mViewModel: DashboardViewModel by viewModels()
+
+    @Inject
+    lateinit var mAdapter: DashboardProductsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +41,66 @@ class DashboardFragment : BaseFragment() {
     ): View {
 
         mBinding = FragmentDashboardBinding.inflate(inflater, container,false)
-
+        observeLiveEvents()
         return mBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getAllProducts()
+    }
+
+    /**
+     * Observe changes in the LiveData.
+     */
+    private fun observeLiveEvents() {
+        mViewModel.response.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressbar()
+                    val products = response.data as List<Product>
+                    if(products.isNotEmpty()) {
+                        addDataToRecyclerView(products)
+                        showRecyclerViewHideNoRecordFound()
+                    } else {
+                        hideRecyclerViewShowNoRecordFound()
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressbar()
+                    hideRecyclerViewShowNoRecordFound()
+                    showSnackBar(
+                        mBinding.root,
+                        response.message ?: "An unknown error occurred.",
+                        true
+                    )
+                }
+                is Resource.Loading ->  showProgressbar()
+            }
+        }
+    }
+
+    /**
+     * Helper method to show/hide recycler view and no record found textview.
+     */
+    private fun hideRecyclerViewShowNoRecordFound() {
+        mBinding.rvDashboardItems.isVisible = false
+        mBinding.tvNoItemsFound.isVisible = true
+    }
+
+    private fun showRecyclerViewHideNoRecordFound() {
+        mBinding.rvDashboardItems.isVisible = true
+        mBinding.tvNoItemsFound.isVisible = false
+    }
+
+    /**
+     * Adds products in the recyclerview adapter.
+     */
+    private fun addDataToRecyclerView(products: List<Product>) {
+        mBinding.rvDashboardItems.apply {
+            adapter = mAdapter
+            mAdapter.submitList(products)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -14,12 +14,13 @@
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_main.xml" value="0.23796296296296296" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_registration.xml" value="0.10833333333333334" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_add_product.xml" value="0.22" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_dashboard.xml" value="0.2074074074074074" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_order.xml" value="0.2074074074074074" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_product.xml" value="0.2074074074074074" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_settings.xml" value="0.2074074074074074" />
+        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_dashboard_item.xml" value="0.25" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_product_item.xml" value="0.25" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_toolbar.xml" value="0.2074074074074074" />
         <entry key="..\:/Android Projects/ShopKart/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3375" />

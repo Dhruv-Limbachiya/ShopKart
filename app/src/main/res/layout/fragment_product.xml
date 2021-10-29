@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white_color_shade1">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_products"
@@ -25,16 +24,12 @@
 
         <TextView
             android:id="@+id/tv_no_products_found"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
             android:text="@string/text_products_not_added_yet"
-            android:textColor="@color/item_value_text_color"
-            android:textSize="@dimen/dimen_24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/NoRecordFoundTextStyle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

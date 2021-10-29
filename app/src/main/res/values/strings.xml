@@ -53,4 +53,5 @@
     <string name="prefUserId">prefUserId</string>
     <string name="text_products_not_added_yet">Products not added yet.</string>
     <string name="product_price">₹ %s</string>
+    <string name="text_no_items_found">No items found.</string>
 </resources>

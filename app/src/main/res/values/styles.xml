@@ -28,4 +28,12 @@
     <style name="ToolbarColoredBackArrow" parent="Theme.ShopKart">
         <item name="android:textColorSecondary">@color/white</item>
     </style>
+
+    <style name="NoRecordFoundTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/quicksand_medium</item>
+        <item name="android:textColor">@color/item_value_text_color</item>
+        <item name="android:textSize">@dimen/dimen_24sp</item>
+    </style>
 </resources>
