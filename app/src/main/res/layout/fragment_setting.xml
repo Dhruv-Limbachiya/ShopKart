@@ -39,6 +39,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 app:setImageUrl="@{viewModel.observableImage}"
+                app:setPlaceholder="@{@drawable/profile_placeholder}"
                 tools:src="@drawable/profile_placeholder" />
 
         </LinearLayout>

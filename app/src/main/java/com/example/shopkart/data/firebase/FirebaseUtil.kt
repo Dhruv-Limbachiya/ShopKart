@@ -12,10 +12,6 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import javax.inject.Inject
 import kotlin.random.Random
 
 /**
@@ -113,7 +109,6 @@ class FirebaseUtil {
      * Uploads the product details on firestore db.
      */
     fun uploadProductDetailsOnFirestore(product: Product, onResponse: (Resource<String>) -> Unit) {
-        onResponse(Resource.Loading())
         fireStoreDb
             .collection(PRODUCT_COLLECTION)
             .document()
@@ -127,11 +122,40 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Fetches products which are added by the current logged in user.
+     */
+    fun getProductsFromFireStore(onResponse: (Resource<Any>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let {
+            onResponse(Resource.Loading())
+            fireStoreDb.collection(PRODUCT_COLLECTION)
+                .whereEqualTo(USER_ID,it) // Get all the products which are added by current logged in user.
+                .get()
+                .addOnSuccessListener {
+                    val documents = it.documents // Retrieve all the documents.
+                    val products = ArrayList<Product>()
+                    for(doc in documents) {
+                        val product = doc.toObject(Product::class.java)
+                        if (product != null) {
+                            product.id = doc.id // Assigns doc id as product id in product object.
+                            products.add(product)
+                        }
+                    }
+
+                    onResponse(Resource.Success(products)) // indicates the products received successfully.
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message)) // failed to retrieve products.
+                }
+        }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"
         const val PROFILE = "profile_images"
         const val PRODUCTS = "products"
         const val TAG = "FirebaseUtil"
+        const val USER_ID = "user_id"
     }
 }

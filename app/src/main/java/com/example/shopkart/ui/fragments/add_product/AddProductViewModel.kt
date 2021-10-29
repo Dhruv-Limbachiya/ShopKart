@@ -75,7 +75,6 @@ class AddProductViewModel @Inject constructor(
     fun onProductSaveButtonClick() {
         if (validateProductDetails()) {
             uploadProductImage()
-            _status.postValue(Resource.Success("Product data saved."))
         }
     }
 

@@ -1,13 +1,12 @@
 package com.example.shopkart.util
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -46,12 +45,13 @@ fun getExtension(imageUri: Uri, context: Context) =
     MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(imageUri))
 
 
-@BindingAdapter(value = ["setImageUrl"],requireAll = true)
+@BindingAdapter(value = ["setImageUrl","setPlaceholder"],requireAll = false)
 @SuppressLint("CheckResult")
-fun AppCompatImageView.setImageUrl(imageUrl: String) {
+fun AppCompatImageView.setImageUrl(imageUrl: String, placeHolder: Drawable) {
+
     val requestOptions = RequestOptions().apply {
-        placeholder(R.drawable.profile_placeholder)
-        error(R.drawable.profile_placeholder)
+        placeholder(placeHolder)
+        error(placeHolder)
         diskCacheStrategy(DiskCacheStrategy.ALL)
     }
 

@@ -42,6 +42,7 @@
                         android:adjustViewBounds="true"
                         android:layout_margin="@dimen/dimen_8dp"
                         app:setImageUrl="@{viewModel.observableProfileImageUri}"
+                        app:setPlaceholder="@{@drawable/profile_placeholder}"
                         tools:src="@drawable/profile_placeholder"
                          />
 

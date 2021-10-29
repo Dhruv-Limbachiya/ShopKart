@@ -51,21 +51,19 @@ class AddProductFragment : BaseFragment() {
         mViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Resource.Success -> {
-                    showToast(requireContext(),status.data ?: "Success")
                     hideProgressbar()
+                    showToast(requireContext(),status.data ?: "Success")
                     this.findNavController().popBackStack() // Back to the previous fragment.
                 }
                 is Resource.Error -> {
+                    hideProgressbar()
                     showSnackBar(
                         mBinding.root,
                         status.message ?: "An unknown error occurred.",
                         true
                     )
-                    hideProgressbar()
                 }
-                is Resource.Loading -> {
-                    showProgressbar()
-                }
+                is Resource.Loading -> showProgressbar()
             }
         }
     }
