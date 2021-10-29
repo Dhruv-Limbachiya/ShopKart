@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dimen_4dp"
+        app:cardElevation="@dimen/dimen_6dp"
+        android:layout_marginHorizontal="@dimen/dimen_6dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/dimen_8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/iv_product_image_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/product_image_placeholder_color"
+                tools:ignore="MissingConstraints">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_product_item_image"
+                    android:layout_width="@dimen/dimen_120dp"
+                    android:layout_height="@dimen/dimen_120dp"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_product_image_layout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/iv_product_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_20sp"
+                    tools:text="Shoes" />
+
+                <TextView
+                    android:id="@+id/iv_product_item_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_18sp"
+                    tools:text="20" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
