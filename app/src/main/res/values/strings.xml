@@ -50,4 +50,5 @@
     <string name="hint_product_price">Product Price (₹)</string>
     <string name="hint_product_description">Product Description</string>
     <string name="hint_product_quantity">Product Quantity</string>
+    <string name="prefUserId">prefUserId</string>
 </resources>

@@ -3,18 +3,14 @@ package com.example.shopkart.ui.fragments.profile
 import android.content.Context
 import androidx.core.net.toUri
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.viewModelScope
 import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.activities.base.BaseViewModel
-import com.example.shopkart.ui.fragments.profile.ProfileViewModel.*
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.SharePreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -108,9 +104,10 @@ class ProfileViewModel @Inject constructor(
 
                 userHashMap[KEY_PROFILE_COMPLETED] = 1 // 1 denotes profile completed.
 
-                firebaseUtil.uploadProfileImageToCloudStorage(
+                firebaseUtil.uploadImageToCloudStorage(
+                    application,
                     observableProfileImageUri.trimmed.toUri(),
-                    application
+                    FirebaseUtil.PROFILE
                 ) { response ->
                     response.data?.let {
                         userHashMap[KEY_IMAGE] = it

@@ -6,6 +6,7 @@ import android.content.Context
 import android.net.Uri
 import android.view.View
 import android.webkit.MimeTypeMap
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -31,6 +32,11 @@ fun showSnackBar(view: View, message: String, isError: Boolean = false) {
     }
 
     snackBar.show()
+}
+
+
+fun showToast(context: Context, message: String) {
+    Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
 }
 
 /**

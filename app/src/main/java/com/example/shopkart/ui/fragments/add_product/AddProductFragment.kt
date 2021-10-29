@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopkart.databinding.FragmentAddProductBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
+import com.example.shopkart.util.showToast
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Created by Dhruv Limbachiya on 28-10-2021.
  */
+
+@AndroidEntryPoint
 class AddProductFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentAddProductBinding
@@ -46,9 +51,9 @@ class AddProductFragment : BaseFragment() {
         mViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Resource.Success -> {
-                    showSnackBar(mBinding.root, status.data ?: "Success", false)
+                    showToast(requireContext(),status.data ?: "Success")
                     hideProgressbar()
-//                    this.findNavController().popBackStack() // Back to the previous fragment.
+                    this.findNavController().popBackStack() // Back to the previous fragment.
                 }
                 is Resource.Error -> {
                     showSnackBar(

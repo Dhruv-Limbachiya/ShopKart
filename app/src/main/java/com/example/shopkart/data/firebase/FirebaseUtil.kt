@@ -3,6 +3,7 @@ package com.example.shopkart.data.firebase
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import com.example.shopkart.data.model.Product
 import com.example.shopkart.data.model.User
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.getExtension
@@ -93,10 +94,10 @@ class FirebaseUtil {
     /**
      * Upload profile image on Firebase cloud storage.
      */
-    fun uploadProfileImageToCloudStorage(imageUri: Uri,context: Context ,onResponse: (Resource<String>) -> Unit) {
+    fun uploadImageToCloudStorage(context: Context, imageUri: Uri, rootFolderName: String, onResponse: (Resource<String>) -> Unit) {
         onResponse(Resource.Loading())
         cloudStorage
-            .child("$PROFILE_IMAGE_PATH/${System.currentTimeMillis()}.${getExtension(imageUri,context)}") // image path.
+            .child("$rootFolderName/${System.currentTimeMillis()}.${getExtension(imageUri,context)}") // image path.
             .putFile(imageUri) // uri to upload
             .addOnSuccessListener {
                 it.metadata?.reference?.downloadUrl?.addOnSuccessListener { url -> // download the uploaded image url.
@@ -108,9 +109,29 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Uploads the product details on firestore db.
+     */
+    fun uploadProductDetailsOnFirestore(product: Product, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(PRODUCT_COLLECTION)
+            .document()
+            .set(product, SetOptions.merge())
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Product uploaded successfully."))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message.toString()))
+                Log.i(TAG, "uploadProductDetailsOnFirestore: ${it.message.toString()}")
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
-        const val PROFILE_IMAGE_PATH = "profile_images"
+        const val PRODUCT_COLLECTION = "products"
+        const val PROFILE = "profile_images"
+        const val PRODUCTS = "products"
         const val TAG = "FirebaseUtil"
     }
 }

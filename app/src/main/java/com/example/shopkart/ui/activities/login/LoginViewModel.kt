@@ -83,6 +83,11 @@ class LoginViewModel @Inject constructor(
         sharedPreferenceUtil.clearData() // clear the outdated data
 
         sharedPreferenceUtil.setString(
+            application.getString(R.string.prefUserId),
+            user.uid
+        )
+
+        sharedPreferenceUtil.setString(
             application.getString(R.string.prefProfileImagePath),
             user.image
         )
