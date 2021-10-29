@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.shopkart.R
 import com.example.shopkart.databinding.FragmentProfileBinding
-import com.example.shopkart.ui.activities.DashboardActivity
 import com.example.shopkart.ui.fragments.base.BaseFragment
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
@@ -54,17 +52,17 @@ class ProfileFragment : BaseFragment() {
         mViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Resource.Success -> {
-                    showSnackBar(mBinding.root, status.data ?: "Success", false)
                     hideProgressbar()
+                    showSnackBar(mBinding.root, status.data ?: "Success", false)
                     this.findNavController().popBackStack() // Back to the previous fragment.
                 }
                 is Resource.Error -> {
+                    hideProgressbar()
                     showSnackBar(
                         mBinding.root,
                         status.message ?: "An unknown error occurred.",
                         true
                     )
-                    hideProgressbar()
                 }
                 is Resource.Loading -> {
                     showProgressbar()

@@ -11,34 +11,53 @@ import com.example.shopkart.databinding.LayoutProductItemBinding
 /**
  * Created by Dhruv Limbachiya on 29-10-2021.
  */
-class ProductsAdapter : ListAdapter<Product,ProductsAdapter.ProductViewHolder>(ProductDiffCallback()) {
+class ProductsAdapter() :
+    ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallback()) {
+
+    private var deleteProductListener: ((Product) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-       return ProductViewHolder.from(parent)
+        return ProductViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = getItem(position) // current product.
-        holder.bind(product)
+        holder.bind(product,deleteProductListener)
     }
 
+    /**
+     * Setter method to delete product listener
+     */
+    fun setDeleteProductListener(onDeleteProductListener: (Product) -> Unit) {
+        deleteProductListener = onDeleteProductListener
+    }
 
-    class ProductViewHolder(val binding : LayoutProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(val binding: LayoutProductItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Bind views with product data.
          */
-        fun bind(product: Product?) {
+        fun bind(product: Product?, deleteProductListener: ((Product) -> Unit)?) {
             product?.let {
                 binding.product = it // assigns product in binding product variable.
+                binding.ivDeleteProduct.setOnClickListener {
+                    deleteProductListener?.let {
+                        it(product)
+                    }
+                }
             }
         }
 
         companion object {
 
-            fun from(parent: ViewGroup) : ProductViewHolder {
+            fun from(parent: ViewGroup): ProductViewHolder {
                 return ProductViewHolder(
-                    LayoutProductItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                    LayoutProductItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 )
             }
 
@@ -49,5 +68,5 @@ class ProductsAdapter : ListAdapter<Product,ProductsAdapter.ProductViewHolder>(P
 
 class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
     override fun areItemsTheSame(oldItem: Product, newItem: Product) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Product, newItem: Product)  = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Product, newItem: Product) = oldItem.id == newItem.id
 }

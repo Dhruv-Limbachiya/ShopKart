@@ -35,7 +35,10 @@ class FirebaseUtil {
     fun saveUser(user: User, onResponse: (Resource<String>) -> Unit) {
         fireStoreDb.collection(USER_COLLECTION)
             .document(user.uid ?: Random.toString())
-            .set(user,SetOptions.merge()) // set user data in the given document, if it is already existed then merge the new data with the existing one.
+            .set(
+                user,
+                SetOptions.merge()
+            ) // set user data in the given document, if it is already existed then merge the new data with the existing one.
             .addOnSuccessListener {
                 onResponse(Resource.Success("Registration Successful"))
                 Log.i(TAG, "saveUser: Data saved")
@@ -61,7 +64,7 @@ class FirebaseUtil {
                     }
                 }
                 .addOnFailureListener {
-                    Log.e(TAG,it.message.toString())
+                    Log.e(TAG, it.message.toString())
                 }
         }
     }
@@ -70,7 +73,10 @@ class FirebaseUtil {
     /**
      * Updates the user details on FireStore.
      */
-    fun updateUserProfile(userHashMap: HashMap<String,Any>, onResponse: (Resource<String>) -> Unit) {
+    fun updateUserProfile(
+        userHashMap: HashMap<String, Any>,
+        onResponse: (Resource<String>) -> Unit
+    ) {
         onResponse(Resource.Loading())
         firebaseAuth.currentUser?.uid?.let { uid ->
             fireStoreDb
@@ -90,10 +96,22 @@ class FirebaseUtil {
     /**
      * Upload profile image on Firebase cloud storage.
      */
-    fun uploadImageToCloudStorage(context: Context, imageUri: Uri, rootFolderName: String, onResponse: (Resource<String>) -> Unit) {
+    fun uploadImageToCloudStorage(
+        context: Context,
+        imageUri: Uri,
+        rootFolderName: String,
+        onResponse: (Resource<String>) -> Unit
+    ) {
         onResponse(Resource.Loading())
         cloudStorage
-            .child("$rootFolderName/${System.currentTimeMillis()}.${getExtension(imageUri,context)}") // image path.
+            .child(
+                "$rootFolderName/${System.currentTimeMillis()}.${
+                    getExtension(
+                        imageUri,
+                        context
+                    )
+                }"
+            ) // image path.
             .putFile(imageUri) // uri to upload
             .addOnSuccessListener {
                 it.metadata?.reference?.downloadUrl?.addOnSuccessListener { url -> // download the uploaded image url.
@@ -129,12 +147,15 @@ class FirebaseUtil {
         firebaseAuth.currentUser?.uid?.let {
             onResponse(Resource.Loading())
             fireStoreDb.collection(PRODUCT_COLLECTION)
-                .whereEqualTo(USER_ID,it) // Get all the products which are added by current logged in user.
+                .whereEqualTo(
+                    USER_ID,
+                    it
+                ) // Get all the products which are added by current logged in user.
                 .get()
                 .addOnSuccessListener {
                     val documents = it.documents // Retrieve all the documents.
                     val products = ArrayList<Product>()
-                    for(doc in documents) {
+                    for (doc in documents) {
                         val product = doc.toObject(Product::class.java)
                         if (product != null) {
                             product.id = doc.id // Assigns doc id as product id in product object.
@@ -154,27 +175,43 @@ class FirebaseUtil {
      * Fetches all the products.
      */
     fun getAllProductsFromFireStore(onResponse: (Resource<Any>) -> Unit) {
-        firebaseAuth.currentUser?.uid?.let {
-            onResponse(Resource.Loading())
-            fireStoreDb.collection(PRODUCT_COLLECTION)
-                .get()
-                .addOnSuccessListener {
-                    val documents = it.documents // Retrieve all the documents.
-                    val products = ArrayList<Product>()
-                    for(doc in documents) {
-                        val product = doc.toObject(Product::class.java)
-                        if (product != null) {
-                            product.id = doc.id // Assigns doc id as product id in product object.
-                            products.add(product)
-                        }
+        onResponse(Resource.Loading())
+        fireStoreDb.collection(PRODUCT_COLLECTION)
+            .get()
+            .addOnSuccessListener {
+                val documents = it.documents // Retrieve all the documents.
+                val products = ArrayList<Product>()
+                for (doc in documents) {
+                    val product = doc.toObject(Product::class.java)
+                    if (product != null) {
+                        product.id = doc.id // Assigns doc id as product id in product object.
+                        products.add(product)
                     }
+                }
 
-                    onResponse(Resource.Success(products)) // indicates the products received successfully.
-                }
-                .addOnFailureListener {
-                    onResponse(Resource.Error(it.message)) // failed to retrieve products.
-                }
-        }
+                onResponse(Resource.Success(products)) // indicates the products received successfully.
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message)) // failed to retrieve products.
+            }
+    }
+
+    /**
+     * Delete product on Firestore db.
+     */
+    fun deleteProduct(productId: String, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(PRODUCT_COLLECTION)
+            .document(productId)
+            .delete()
+            .addOnSuccessListener {
+                onResponse(Resource.Loading())
+                onResponse(Resource.Success("Product deleted successfully.")) // indicates the products received successfully.
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message)) // failed to retrieve products.
+            }
     }
 
     companion object {

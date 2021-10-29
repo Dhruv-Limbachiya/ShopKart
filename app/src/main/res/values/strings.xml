@@ -54,4 +54,6 @@
     <string name="text_products_not_added_yet">Products not added yet.</string>
     <string name="product_price">₹ %s</string>
     <string name="text_no_items_found">No items found.</string>
+    <string name="text_delete_product_content_description">Delete Product</string>
+    <string name="delete_alert_title">Delete</string>
 </resources>

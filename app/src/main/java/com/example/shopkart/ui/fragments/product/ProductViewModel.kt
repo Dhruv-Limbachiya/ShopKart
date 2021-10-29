@@ -1,7 +1,6 @@
 package com.example.shopkart.ui.fragments.product
 
 import android.content.Context
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shopkart.data.firebase.FirebaseUtil
@@ -24,15 +23,21 @@ class ProductViewModel @Inject constructor(
     private var _response = MutableLiveData<Resource<Any>>()
     val response: LiveData<Resource<Any>> = _response
 
-    val observableNoRecordFound = ObservableBoolean(false)
-
-
     /**
      * Gets the products from the Firestore db.
      */
     fun getProducts() {
         firebaseUtil.getProductsFromFireStore {
             _response.postValue(it)
+        }
+    }
+
+    /**
+     * Delete the specific product on Firestore,
+     */
+    fun deleteProduct(productId: String) {
+        firebaseUtil.deleteProduct(productId) {
+            _status.postValue(it)
         }
     }
 }

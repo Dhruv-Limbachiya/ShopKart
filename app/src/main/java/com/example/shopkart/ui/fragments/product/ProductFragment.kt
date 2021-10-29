@@ -1,5 +1,6 @@
 package com.example.shopkart.ui.fragments.product
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
@@ -78,6 +79,26 @@ class ProductFragment : BaseFragment() {
                 is Resource.Loading ->  showProgressbar()
             }
         }
+
+        mViewModel.status.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                is Resource.Loading ->  showProgressbar()
+
+                is Resource.Success -> {
+                    hideProgressbar()
+                    showSnackBar(mBinding.root, status.data ?: "Success", false)
+                }
+                is Resource.Error -> {
+                    hideProgressbar()
+                    showSnackBar(
+                        mBinding.root,
+                        status.message ?: "An unknown error occurred.",
+                        true
+                    )
+                }
+
+            }
+        }
     }
 
     /**
@@ -100,7 +121,32 @@ class ProductFragment : BaseFragment() {
         mBinding.rvProducts.apply {
             adapter = mAdapter
             mAdapter.submitList(products)
+            mAdapter.setDeleteProductListener { product ->
+                showDeleteAlertDialogBox(product)
+            }
         }
+    }
+
+    /**
+     * Shows an alert dialog box on clicking delete icon.
+     */
+    private fun showDeleteAlertDialogBox(product: Product) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setCancelable(false)
+        builder.setIcon(R.drawable.ic_warning)
+        builder.setTitle(getString(R.string.delete_alert_title))
+        builder.setMessage("Are you sure you want to delete \"${product.title}\" product?")
+        builder.setPositiveButton("Yes") { dialog, p1 ->
+            mViewModel.deleteProduct(product.id)
+            mViewModel.getProducts()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("No") { dialog, p1 ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

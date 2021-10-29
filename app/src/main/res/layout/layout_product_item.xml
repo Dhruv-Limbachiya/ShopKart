@@ -76,6 +76,18 @@
 
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/iv_delete_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary"
+                android:contentDescription="@string/text_delete_product_content_description" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
