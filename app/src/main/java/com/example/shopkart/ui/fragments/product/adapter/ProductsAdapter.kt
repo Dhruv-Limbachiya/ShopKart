@@ -15,6 +15,7 @@ class ProductsAdapter() :
     ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     private var deleteProductListener: ((Product) -> Unit)? = null
+    private var onProductClickListener : ((Product) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder.from(parent)
@@ -22,7 +23,7 @@ class ProductsAdapter() :
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = getItem(position) // current product.
-        holder.bind(product,deleteProductListener)
+        holder.bind(product,deleteProductListener,onProductClickListener)
     }
 
     /**
@@ -32,17 +33,33 @@ class ProductsAdapter() :
         deleteProductListener = onDeleteProductListener
     }
 
+    /**
+     * Setter method for onProductClickListener property.
+     */
+    fun setOnProductItemClickListener(onProductClickListener : (Product) -> Unit) {
+        this.onProductClickListener = onProductClickListener
+    }
+
     class ProductViewHolder(val binding: LayoutProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Bind views with product data.
          */
-        fun bind(product: Product?, deleteProductListener: ((Product) -> Unit)?) {
+        fun bind(
+            product: Product?,
+            deleteProductListener: ((Product) -> Unit)?,
+            onProductClickListener: ((Product) -> Unit)?
+        ) {
             product?.let {
                 binding.product = it // assigns product in binding product variable.
                 binding.ivDeleteProduct.setOnClickListener {
                     deleteProductListener?.let {
+                        it(product)
+                    }
+                }
+                binding.root.setOnClickListener {
+                    onProductClickListener?.let {
                         it(product)
                     }
                 }

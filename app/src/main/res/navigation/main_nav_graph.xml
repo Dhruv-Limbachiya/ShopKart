@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
@@ -35,7 +38,20 @@
         <action
             android:id="@+id/action_productFragment_to_addProductFragment"
             app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.shopkart.ui.fragments.product_detail.ProductDetailFragment"
+        android:label="Product Detail" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/settingFragment"
@@ -56,6 +72,5 @@
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
-
 
 </navigation>

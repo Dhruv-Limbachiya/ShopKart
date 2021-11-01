@@ -124,6 +124,11 @@ class ProductFragment : BaseFragment() {
             mAdapter.setDeleteProductListener { product ->
                 showDeleteAlertDialogBox(product)
             }
+            mAdapter.setOnProductItemClickListener {
+                findNavController().navigate(
+                    ProductFragmentDirections.actionProductFragmentToProductDetailFragment(it.id)
+                )
+            }
         }
     }
 

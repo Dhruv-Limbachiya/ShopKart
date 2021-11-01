@@ -100,6 +100,11 @@ class DashboardFragment : BaseFragment() {
         mBinding.rvDashboardItems.apply {
             adapter = mAdapter
             mAdapter.submitList(products)
+            mAdapter.setOnProductItemClickListener {
+                findNavController().navigate(
+                    DashboardFragmentDirections.actionDashboardFragmentToProductDetailFragment(it.id)
+                )
+            }
         }
     }
 

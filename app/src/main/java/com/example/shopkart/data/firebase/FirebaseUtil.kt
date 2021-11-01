@@ -206,11 +206,29 @@ class FirebaseUtil {
             .document(productId)
             .delete()
             .addOnSuccessListener {
-                onResponse(Resource.Loading())
                 onResponse(Resource.Success("Product deleted successfully.")) // indicates the products received successfully.
             }
             .addOnFailureListener {
                 onResponse(Resource.Error(it.message)) // failed to retrieve products.
+            }
+    }
+
+    /**
+     * Get the product details by its product id.
+     */
+    fun getProductDetailsById(productId: String, onResponse: (Resource<Any>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(PRODUCT_COLLECTION)
+            .document(productId)
+            .get()
+            .addOnSuccessListener {
+                it.toObject(Product::class.java)?.let { product ->
+                    onResponse(Resource.Success(product)) // Product data received successfully.
+                }
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message)) // failed to retrieve product.
             }
     }
 
