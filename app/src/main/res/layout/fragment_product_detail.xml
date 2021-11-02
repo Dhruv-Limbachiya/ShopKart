@@ -100,6 +100,16 @@
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add_to_cart"
+            style="@style/ShopKartButtonStyle"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/text_add_to_cart"
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_gender" />
+
     </LinearLayout>
 
 </layout>

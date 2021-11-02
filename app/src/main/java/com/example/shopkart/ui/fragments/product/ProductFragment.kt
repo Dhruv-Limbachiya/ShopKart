@@ -126,7 +126,7 @@ class ProductFragment : BaseFragment() {
             }
             mAdapter.setOnProductItemClickListener {
                 findNavController().navigate(
-                    ProductFragmentDirections.actionProductFragmentToProductDetailFragment(it.id)
+                    ProductFragmentDirections.actionProductFragmentToProductDetailFragment(it.id,it.user_id)
                 )
             }
         }

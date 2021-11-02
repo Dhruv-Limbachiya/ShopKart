@@ -6,11 +6,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
+import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.databinding.FragmentDashboardBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
 import com.example.shopkart.ui.fragments.dashboard.adapter.DashboardProductsAdapter
 import com.example.shopkart.util.Resource
+import com.example.shopkart.util.SharePreferenceUtil
 import com.example.shopkart.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +30,7 @@ class DashboardFragment : BaseFragment() {
 
     @Inject
     lateinit var mAdapter: DashboardProductsAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +105,7 @@ class DashboardFragment : BaseFragment() {
             mAdapter.submitList(products)
             mAdapter.setOnProductItemClickListener {
                 findNavController().navigate(
-                    DashboardFragmentDirections.actionDashboardFragmentToProductDetailFragment(it.id)
+                    DashboardFragmentDirections.actionDashboardFragmentToProductDetailFragment(it.id,it.user_id)
                 )
             }
         }

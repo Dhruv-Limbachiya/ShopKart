@@ -3,32 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_product_image_background.xml" value="0.14722222222222223" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_profile_image_background.xml" value="0.28055555555555556" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_radio_button_selector.xml" value="0.28055555555555556" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/drawable_white_background.xml" value="0.2712962962962963" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/ic_add.xml" value="0.2712962962962963" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/ic_settings.xml" value="0.2712962962962963" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/drawable/ic_warning.xml" value="0.14722222222222223" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_login.xml" value="0.22870370370370371" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_main.xml" value="0.23796296296296296" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/activity_registration.xml" value="0.10833333333333334" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_add_product.xml" value="0.22" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_order.xml" value="0.2074074074074074" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_product.xml" value="0.2074074074074074" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_product_detail.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/fragment_settings.xml" value="0.2074074074074074" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_dashboard_item.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_product_item.xml" value="0.25" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/layout/layout_toolbar.xml" value="0.2074074074074074" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3375" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/menu/main_menu.xml" value="0.2074074074074074" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14722222222222223" />
-        <entry key="..\:/Android Projects/ShopKart/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/drawable/drawable_button.xml" value="0.1" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/drawable/drawable_gradient_splash_background.xml" value="0.15" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/drawable/drawable_profile_image_background.xml" value="0.1" />
@@ -41,6 +15,7 @@
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_splash.xml" value="0.15" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_product_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/progressbar_dialog_layout.xml" value="0.25" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

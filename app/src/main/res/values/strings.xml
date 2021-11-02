@@ -57,4 +57,5 @@
     <string name="text_delete_product_content_description">Delete Product</string>
     <string name="delete_alert_title">Delete</string>
     <string name="text_stock_quantity">Stock Quantity :</string>
+    <string name="text_add_to_cart">Add to cart</string>
 </resources>
