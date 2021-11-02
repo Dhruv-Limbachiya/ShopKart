@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.example.shopkart.ui.fragments.product_detail.ProductDetailViewModel" />
@@ -105,10 +108,15 @@
             style="@style/ShopKartButtonStyle"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/text_add_to_cart"
-            android:layout_width="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rg_gender" />
+            android:layout_width="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_go_to_cart"
+            style="@style/ShopKartButtonStyle"
+            android:visibility="@{viewModel.observableGoToCartVisible ? View.VISIBLE : View.GONE}"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/text_go_to_cart"
+            android:layout_width="match_parent" />
 
     </LinearLayout>
 

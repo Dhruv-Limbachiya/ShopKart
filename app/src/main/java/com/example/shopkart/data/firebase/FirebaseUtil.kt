@@ -3,6 +3,7 @@ package com.example.shopkart.data.firebase
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.data.model.User
 import com.example.shopkart.util.Resource
@@ -232,12 +233,57 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Upload cart item details on Firestore db.
+     */
+    fun uploadCartItem(cartItem: CartItem, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(CART_ITEM_COLLECTION)
+            .document()
+            .set(cartItem, SetOptions.merge())
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Product added to cart."))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message)) // failed to retrieve product.
+            }
+    }
+
+    /**
+     * Check product already exists in Cart Items collection.
+     */
+    fun checkProductAlreadyExist(productId: String, onResponse: (Resource<Boolean>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            fireStoreDb
+                .collection(CART_ITEM_COLLECTION)
+                .whereEqualTo(CART_USER_ID,userId)
+                .whereEqualTo(CART_PRODUCT_ID,productId)
+                .get()
+                .addOnSuccessListener {
+                    if(it.documents.size > 0){
+                        onResponse(Resource.Success(true))
+                    } else {
+                        onResponse(Resource.Error("",false)) // failed to retrieve product.
+                    }
+
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message,false)) // failed to retrieve product.
+                }
+        }
+
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"
+        const val CART_ITEM_COLLECTION = "cart_items"
         const val PROFILE = "profile_images"
         const val PRODUCTS = "products"
         const val TAG = "FirebaseUtil"
         const val USER_ID = "user_id"
+        const val CART_PRODUCT_ID = "productId"
+        const val CART_USER_ID = "userId"
     }
 }
