@@ -1,4 +1,4 @@
-package com.example.shopkart.ui.fragments.product.adapter
+package com.example.shopkart.ui.fragments.product
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

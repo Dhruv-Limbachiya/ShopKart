@@ -1,0 +1,54 @@
+package com.example.shopkart.ui.fragments.cart
+
+import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.shopkart.data.firebase.FirebaseUtil
+import com.example.shopkart.data.model.CartItem
+import com.example.shopkart.ui.activities.base.BaseViewModel
+import com.example.shopkart.ui.fragments.cart.CartViewModel.Companion.DEFAULT_SHIPPING_CHARGE
+import com.example.shopkart.util.ObservableString
+import com.example.shopkart.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+/**
+ * Created By Dhruv Limbachiya on 03-11-2021 18:40.
+ */
+
+@HiltViewModel
+class CartViewModel @Inject constructor(
+    firebaseUtil: FirebaseUtil
+) : BaseViewModel() {
+
+    private var _cartItemStatus = MutableLiveData<Resource<List<CartItem>>>()
+    val cartItemStatus: LiveData<Resource<List<CartItem>>> = _cartItemStatus
+
+    val observableSubTotal = ObservableString()
+    val observableTotal = ObservableString()
+    val observableShippingCharge = ObservableString()
+
+    init {
+        firebaseUtil.getCartItems {
+            _cartItemStatus.postValue(it)
+
+            var subTotal = 0.0
+
+            var total = 0.0
+
+            for(cartItem in it.data!!) {
+                subTotal += (cartItem.price?.toDouble()?.times(cartItem.cart_quantity?.toDouble() ?: 0.0) ?: 0.0)
+            }
+
+            total = DEFAULT_SHIPPING_CHARGE + subTotal
+
+            observableSubTotal.set(subTotal.toString())
+            observableShippingCharge.set(DEFAULT_SHIPPING_CHARGE.toString())
+            observableTotal.set(total.toString())
+        }
+    }
+
+    companion object {
+        const val DEFAULT_SHIPPING_CHARGE = 40.0
+    }
+}

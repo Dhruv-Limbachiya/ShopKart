@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_cart"
+        android:title="@string/text_cart"
+        android:icon="@drawable/ic_cart"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/menu_settings"
         android:title="@string/text_settings"
         android:icon="@drawable/ic_settings"

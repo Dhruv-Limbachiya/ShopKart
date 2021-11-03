@@ -253,15 +253,15 @@ class FirebaseUtil {
     /**
      * Check product already exists in Cart Items collection.
      */
-    fun checkProductAlreadyExist(productId: String,  onResponse: (Boolean) -> Unit)  {
+    fun checkProductAlreadyExist(productId: String, onResponse: (Boolean) -> Unit) {
         firebaseAuth.currentUser?.uid?.let { userId ->
             fireStoreDb
                 .collection(CART_ITEM_COLLECTION)
-                .whereEqualTo(CART_USER_ID,userId)
-                .whereEqualTo(CART_PRODUCT_ID,productId)
+                .whereEqualTo(CART_USER_ID, userId)
+                .whereEqualTo(CART_PRODUCT_ID, productId)
                 .get()
                 .addOnSuccessListener {
-                    if(it.documents.size > 0){
+                    if (it.documents.size > 0) {
                         onResponse(true)
                     } else {
                         onResponse(false) // failed to retrieve product.
@@ -272,7 +272,38 @@ class FirebaseUtil {
                     onResponse(false) // failed to retrieve product.
                 }
         }
+    }
 
+    /**
+     * Check product already exists in Cart Items collection.
+     */
+    fun getCartItems(onResponse: (Resource<List<CartItem>>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            fireStoreDb
+                .collection(CART_ITEM_COLLECTION)
+                .whereEqualTo(CART_USER_ID, userId)
+                .get()
+                .addOnSuccessListener {
+                    if (it.documents.size > 0) {
+                        val cartItems = mutableListOf<CartItem>()
+
+                        for (doc in it.documents) {
+                            doc.toObject(CartItem::class.java)?.let { item ->
+                                item.id = doc.id // Add doc id as cart item id.
+                                cartItems.add(item)
+                            }
+                        }
+
+                        onResponse(Resource.Success(cartItems))
+                    } else {
+                        onResponse(Resource.Error("No cart item found!")) // failed to retrieve product.
+                    }
+
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message)) // failed to retrieve cart items.
+                }
+        }
     }
 
     companion object {

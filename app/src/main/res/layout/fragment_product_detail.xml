@@ -97,6 +97,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand_medium"
                 android:layout_marginStart="@dimen/dimen_4dp"
+                android:padding="@dimen/dimen_8dp"
+                android:background="@drawable/drawable_white_border_background"
                 android:text="@{viewModel.observableProductStockQuantity}"
                 android:textSize="@dimen/dimen_16sp"
                 tools:text="9"/>

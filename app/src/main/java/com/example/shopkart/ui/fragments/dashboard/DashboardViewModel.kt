@@ -17,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val firebaseUtil: FirebaseUtil,
-    @ApplicationContext private val application: Context
 ) : BaseViewModel() {
 
     private var _response = MutableLiveData<Resource<Any>>()

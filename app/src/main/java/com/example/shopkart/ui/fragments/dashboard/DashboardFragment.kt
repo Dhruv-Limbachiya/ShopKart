@@ -6,13 +6,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
-import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.databinding.FragmentDashboardBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
-import com.example.shopkart.ui.fragments.dashboard.adapter.DashboardProductsAdapter
 import com.example.shopkart.util.Resource
-import com.example.shopkart.util.SharePreferenceUtil
 import com.example.shopkart.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -135,6 +132,13 @@ class DashboardFragment : BaseFragment() {
                 findNavController().navigate(R.id.action_dashboardFragment_to_settingFragment)
                 return true
             }
+
+            // Navigates to the [CartListFragment] on setting menu item click
+            R.id.menu_cart -> {
+                findNavController().navigate(R.id.action_dashboardFragment_to_cartListFragment)
+                return true
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }

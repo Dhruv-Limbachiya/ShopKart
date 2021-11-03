@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_cartListFragment"
+            app:destination="@id/cartListFragment" />
     </fragment>
 
     <fragment
@@ -67,6 +70,13 @@
         android:name="com.example.shopkart.ui.fragments.add_product.AddProductFragment"
         android:label="Add Product"
         tools:layout="@layout/fragment_add_product"/>
+
+    <fragment
+        android:id="@+id/cartListFragment"
+        android:name="com.example.shopkart.ui.fragments.cart.CartListFragment"
+        android:label="@string/text_cart"
+        tools:layout="@layout/fragment_cart_list"/>
+
 
     <action
         android:id="@+id/action_global_profileFragment"

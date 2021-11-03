@@ -1,4 +1,4 @@
-package com.example.shopkart.ui.fragments.dashboard.adapter
+package com.example.shopkart.ui.fragments.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.databinding.LayoutDashboardItemBinding
-import com.example.shopkart.ui.fragments.product.adapter.ProductDiffCallback
+import com.example.shopkart.ui.fragments.product.ProductDiffCallback
 
 /**
  * Created by Dhruv Limbachiya on 29-10-2021.
  */
-class DashboardProductsAdapter : ListAdapter<Product, DashboardProductsAdapter.DashboardViewHolder>(ProductDiffCallback()) {
+class DashboardProductsAdapter : ListAdapter<Product, DashboardProductsAdapter.DashboardViewHolder>(
+    ProductDiffCallback()
+) {
 
     private var onProductClickListener : ((Product) -> Unit)? = null
 

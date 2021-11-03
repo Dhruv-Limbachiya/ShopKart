@@ -3,8 +3,9 @@ package com.example.shopkart.di
 import android.content.Context
 import com.example.shopkart.ShopKartApplication
 import com.example.shopkart.data.firebase.FirebaseUtil
-import com.example.shopkart.ui.fragments.dashboard.adapter.DashboardProductsAdapter
-import com.example.shopkart.ui.fragments.product.adapter.ProductsAdapter
+import com.example.shopkart.ui.fragments.cart.CartListAdapter
+import com.example.shopkart.ui.fragments.dashboard.DashboardProductsAdapter
+import com.example.shopkart.ui.fragments.product.ProductsAdapter
 import com.example.shopkart.util.SharePreferenceUtil
 import dagger.Module
 import dagger.Provides
@@ -40,5 +41,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideDashboardProductsAdapter() = DashboardProductsAdapter()
+
+    @Singleton
+    @Provides
+    fun provideCartListAdapter() = CartListAdapter()
 
 }

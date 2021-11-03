@@ -10,7 +10,6 @@ import com.example.shopkart.R
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.databinding.FragmentProductBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
-import com.example.shopkart.ui.fragments.product.adapter.ProductsAdapter
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -162,10 +161,19 @@ class ProductFragment : BaseFragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         val settingMenu = menu.findItem(R.id.menu_settings)
-        // If add product menu item is not null and visible then hide add product item menu.
+        val cartMenu = menu.findItem(R.id.menu_cart)
+
+        // If add product menu item is not null and visible then hide add product menu item.
         settingMenu?.let {
             if(settingMenu.isVisible) {
                 settingMenu.isVisible = false
+            }
+        }
+
+        // If cart menu item is not null and visible then hide cart menu item.
+        cartMenu?.let {
+            if(cartMenu.isVisible) {
+                cartMenu.isVisible = false
             }
         }
     }

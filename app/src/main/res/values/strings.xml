@@ -56,7 +56,13 @@
     <string name="text_no_items_found">No items found.</string>
     <string name="text_delete_product_content_description">Delete Product</string>
     <string name="delete_alert_title">Delete</string>
-    <string name="text_stock_quantity">Stock Quantity :</string>
+    <string name="text_stock_quantity">Stock Quantity </string>
     <string name="text_add_to_cart">Add to cart</string>
     <string name="text_go_to_cart">Go to cart</string>
+    <string name="text_cart">Cart</string>
+    <string name="text_empty_cart">No cart item found!</string>
+    <string name="text_subtotal">Subtotal</string>
+    <string name="text_shipping">Shipping</string>
+    <string name="text_total">Total</string>
+    <string name="text_checkout">Checkout</string>
 </resources>
