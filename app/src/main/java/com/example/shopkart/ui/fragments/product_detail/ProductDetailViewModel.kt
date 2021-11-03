@@ -27,11 +27,14 @@ class ProductDetailViewModel @Inject constructor(
     val observableProductDescription = ObservableString()
     val observableProductStockQuantity = ObservableString()
 
-    val observableGoToCartVisible = ObservableBoolean()
-
     private var _response = MutableLiveData<Resource<Any>>()
     val response: LiveData<Resource<Any>> = _response
 
+    private var _cartItemExist = MutableLiveData<Boolean>()
+    val cartItemExist: LiveData<Boolean> = _cartItemExist
+
+    val observableGoToCartVisible = ObservableBoolean()
+    val observableAddToCartButtonVisible = ObservableBoolean()
 
     /**
      * Make a firebase query call to get the product details.
@@ -60,9 +63,9 @@ class ProductDetailViewModel @Inject constructor(
     /**
      * Make a call to Firestore to check if the product is already added or not.
      */
-    fun checkProductAlreadyExistInCartItemInFireStore(productId: String) {
+    fun checkProductAlreadyExistInCartItemInFireStore(productId: String)  {
         firebaseUtil.checkProductAlreadyExist(productId) {
-            _statusBool.postValue(it)
+            _cartItemExist.value = it
         }
     }
 

@@ -253,7 +253,7 @@ class FirebaseUtil {
     /**
      * Check product already exists in Cart Items collection.
      */
-    fun checkProductAlreadyExist(productId: String, onResponse: (Resource<Boolean>) -> Unit) {
+    fun checkProductAlreadyExist(productId: String,  onResponse: (Boolean) -> Unit)  {
         firebaseAuth.currentUser?.uid?.let { userId ->
             fireStoreDb
                 .collection(CART_ITEM_COLLECTION)
@@ -262,14 +262,14 @@ class FirebaseUtil {
                 .get()
                 .addOnSuccessListener {
                     if(it.documents.size > 0){
-                        onResponse(Resource.Success(true))
+                        onResponse(true)
                     } else {
-                        onResponse(Resource.Error("",false)) // failed to retrieve product.
+                        onResponse(false) // failed to retrieve product.
                     }
 
                 }
                 .addOnFailureListener {
-                    onResponse(Resource.Error(it.message,false)) // failed to retrieve product.
+                    onResponse(false) // failed to retrieve product.
                 }
         }
 

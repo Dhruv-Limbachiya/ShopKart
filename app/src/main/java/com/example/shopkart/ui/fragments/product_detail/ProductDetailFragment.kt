@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.example.shopkart.R
 import com.example.shopkart.data.model.CartItem
@@ -37,6 +36,8 @@ class ProductDetailFragment : BaseFragment() {
 
     private lateinit var productId: String
 
+    private var cartItemExist = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +57,8 @@ class ProductDetailFragment : BaseFragment() {
         // Get product details based on product id.
         mViewModel.getProductDetails(productId)
 
+        checkProductExistInCart()
+
         observeLiveEvents()
 
         return mBinding.root
@@ -65,8 +68,9 @@ class ProductDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.buttonAddToCart.setOnClickListener {
+
             val cartItem = CartItem(
-                product.user_id,
+                mSharePreference.getString(R.string.prefUserId),
                 productId,
                 product.title,
                 product.price,
@@ -74,6 +78,7 @@ class ProductDetailFragment : BaseFragment() {
                 DEFAULT_CART_QUANTITY,
                 product.stock_quantity
             )
+
             mViewModel.onAddToCartButtonClick(cartItem)
         }
     }
@@ -82,7 +87,7 @@ class ProductDetailFragment : BaseFragment() {
      * Checks if product exist in cart.
      */
     private fun checkProductExistInCart() {
-        mViewModel.checkProductAlreadyExistInCartItemInFireStore(product.id)
+         mViewModel.checkProductAlreadyExistInCartItemInFireStore(productId)
     }
 
     /**
@@ -94,10 +99,8 @@ class ProductDetailFragment : BaseFragment() {
                 is Resource.Success -> {
                     hideProgressbar()
                     product = status.data as Product
-                    // Shows "Add To Cart" button only if product is not owned by current logged in user.
-                    mBinding.buttonAddToCart.isVisible = product.user_id != mSharePreference.getString(R.string.prefUserId)
 
-                    checkProductExistInCart()
+                    buttonVisibility()
                 }
                 is Resource.Error -> {
                     hideProgressbar()
@@ -118,6 +121,8 @@ class ProductDetailFragment : BaseFragment() {
                 is Resource.Success -> {
                     hideProgressbar()
                     showSnackBar(mBinding.root,status.data ?: "Success")
+                    cartItemExist = true
+                    buttonVisibility()
                 }
                 is Resource.Error -> {
                     hideProgressbar()
@@ -133,28 +138,31 @@ class ProductDetailFragment : BaseFragment() {
             }
         }
 
-        mViewModel.statusBool.observe(viewLifecycleOwner) { status ->
-            when (status) {
-                is Resource.Success -> {
-                    // TODO : Go to the cart screen.
-                    mViewModel.observableGoToCartVisible.set(true)
-                    mBinding.buttonAddToCart.isVisible = false // Hide the "Add To Cart" button if it is already added to cart.
-                    showSnackBar(mBinding.root,status.data.toString() ?: "Status Bool Success")
-                }
-                is Resource.Error -> {
-                    mViewModel.observableGoToCartVisible.set(false)
-                    mBinding.buttonAddToCart.isVisible = product.user_id != mSharePreference.getString(R.string.prefUserId) // Hide the "Add To Cart" button.
-
-                    showSnackBar(
-                        mBinding.root,
-                        status.message ?: "An unknown error occurred.",
-                        true
-                    )
-                }
-                else -> {/* No Operation */}
-            }
+        mViewModel.cartItemExist.observe(viewLifecycleOwner) {
+            cartItemExist = it
+            buttonVisibility()
         }
     }
+
+    /**
+     * Manages the visibility of "Add To Cart" and "Go To Cart" button.
+     *  Show Add To Cart button on following cases
+     *  Case 1 : If the product is not already added into the cart.
+     *  Case 2 : If the product is not owned by the current user.
+     */
+    private fun buttonVisibility() {
+        if(!cartItemExist && userId != mSharePreference.getString(R.string.prefUserId)) {
+            mViewModel.observableAddToCartButtonVisible.set(true)
+            mViewModel.observableGoToCartVisible.set(false)
+        } else if(cartItemExist) {
+            mViewModel.observableGoToCartVisible.set(true)
+            mViewModel.observableAddToCartButtonVisible.set(false)
+        } else {
+            mViewModel.observableGoToCartVisible.set(false)
+            mViewModel.observableAddToCartButtonVisible.set(false)
+        }
+    }
+
 
     companion object {
         const val DEFAULT_CART_QUANTITY = "1"

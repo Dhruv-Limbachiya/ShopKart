@@ -108,6 +108,7 @@
             style="@style/ShopKartButtonStyle"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/text_add_to_cart"
+            android:visibility="@{viewModel.observableAddToCartButtonVisible ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent" />
 
         <androidx.appcompat.widget.AppCompatButton
