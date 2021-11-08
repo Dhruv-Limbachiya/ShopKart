@@ -93,9 +93,12 @@ class CartListFragment : BaseFragment() {
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_warning)
         builder.setTitle(getString(R.string.delete_alert_title))
-        builder.setMessage("Are you sure you want to remove \"${cartItem.title}\" ?")
+        builder.setMessage("Are you sure you want to remove \"${cartItem.title}\" from the cart ?")
         builder.setPositiveButton("Yes") { dialog, p1 ->
-            // Todo : Delete item from cart
+            cartItem.id?.let {
+                mViewModel.removeCartItem(it) // Remove cart item.
+                mViewModel.refreshCartItemList() // Refresh the entire list.
+            }
             dialog.dismiss()
         }
         builder.setNegativeButton("No") { dialog, p1 ->

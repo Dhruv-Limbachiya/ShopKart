@@ -11,7 +11,4 @@ import com.example.shopkart.util.Resource
 open class BaseViewModel : ViewModel() {
     var _status = MutableLiveData<Resource<String>>()
     val status: LiveData<Resource<String>> = _status
-
-    var _statusBool = MutableLiveData<Resource<Boolean>>()
-    val statusBool: LiveData<Resource<Boolean>> = _statusBool
 }

@@ -1,12 +1,10 @@
 package com.example.shopkart.ui.fragments.cart
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.ui.activities.base.BaseViewModel
-import com.example.shopkart.ui.fragments.cart.CartViewModel.Companion.DEFAULT_SHIPPING_CHARGE
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    firebaseUtil: FirebaseUtil
+    private val firebaseUtil: FirebaseUtil
 ) : BaseViewModel() {
 
     private var _cartItemStatus = MutableLiveData<Resource<List<CartItem>>>()
@@ -29,6 +27,13 @@ class CartViewModel @Inject constructor(
     val observableShippingCharge = ObservableString()
 
     init {
+        loadCartItems()
+    }
+
+    /**
+     * Loads all the cart items.
+     */
+    private fun loadCartItems() {
         firebaseUtil.getCartItems {
             _cartItemStatus.postValue(it)
 
@@ -36,8 +41,9 @@ class CartViewModel @Inject constructor(
 
             var total = 0.0
 
-            for(cartItem in it.data!!) {
-                subTotal += (cartItem.price?.toDouble()?.times(cartItem.cart_quantity?.toDouble() ?: 0.0) ?: 0.0)
+            for (cartItem in it.data!!) {
+                subTotal += (cartItem.price?.toDouble()
+                    ?.times(cartItem.cart_quantity?.toDouble() ?: 0.0) ?: 0.0)
             }
 
             total = DEFAULT_SHIPPING_CHARGE + subTotal
@@ -47,6 +53,23 @@ class CartViewModel @Inject constructor(
             observableTotal.set(total.toString())
         }
     }
+
+    /**
+     * Invokes FirebaseUtil's removeCartItemOnFireStoreDb() method to remove specified cart item in cart_collections.
+     */
+    fun removeCartItem(cartItemId: String) {
+        firebaseUtil.removeCartItemOnFireStoreDb(cartItemId) {
+            _status.postValue(it)
+        }
+    }
+
+    /**
+     * Refresh the cart items data.
+     */
+    fun refreshCartItemList() {
+        loadCartItems()
+    }
+
 
     companion object {
         const val DEFAULT_SHIPPING_CHARGE = 40.0
