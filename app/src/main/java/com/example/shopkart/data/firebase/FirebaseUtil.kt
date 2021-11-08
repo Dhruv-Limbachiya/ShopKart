@@ -311,7 +311,6 @@ class FirebaseUtil {
      * Removes the specified cart item from the "cart_items" collection on FireStore db.
      */
     fun removeCartItemOnFireStoreDb(cartItemId: String,onResponse: (Resource<String>) -> Unit) {
-        onResponse(Resource.Loading())
         fireStoreDb.collection(CART_ITEM_COLLECTION)
             .document(cartItemId)
             .delete()

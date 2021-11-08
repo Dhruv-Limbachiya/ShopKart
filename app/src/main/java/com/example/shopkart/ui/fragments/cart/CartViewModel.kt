@@ -43,13 +43,13 @@ class CartViewModel @Inject constructor(
 
             it.data?.let { list ->
                 for (cartItem in list) {
-                    subTotal += cartItem.price.toDouble()
-                        .times(cartItem.cart_quantity.toDouble())
+                    if(cartItem.stock_quantity.toInt() != 0) {
+                        subTotal += cartItem.price.toDouble()
+                            .times(cartItem.cart_quantity.toDouble())
+                    }
                 }
             }
-
             total = DEFAULT_SHIPPING_CHARGE + subTotal
-
             observableSubTotal.set(subTotal.toString())
             observableShippingCharge.set(DEFAULT_SHIPPING_CHARGE.toString())
             observableTotal.set(total.toString())

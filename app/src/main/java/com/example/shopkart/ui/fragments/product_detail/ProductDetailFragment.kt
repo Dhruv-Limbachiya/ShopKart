@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
 import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.data.model.Product
@@ -80,6 +81,12 @@ class ProductDetailFragment : BaseFragment() {
             )
 
             mViewModel.onAddToCartButtonClick(cartItem)
+        }
+
+        mBinding.buttonGoToCart.setOnClickListener {
+            this.findNavController().navigate(
+                ProductDetailFragmentDirections.actionProductDetailFragmentToCartListFragment()
+            )
         }
     }
 

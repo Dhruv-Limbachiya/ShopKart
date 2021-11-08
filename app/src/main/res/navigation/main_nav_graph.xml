@@ -56,6 +56,9 @@
         <argument
             android:name="userId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartListFragment"
+            app:destination="@id/cartListFragment" />
     </fragment>
 
 

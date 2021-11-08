@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -53,12 +54,12 @@ class CartListFragment : BaseFragment() {
             when (response) {
                 is Resource.Success -> {
                     hideProgressbar()
-                    addDataToRecyclerView(response.data!!)
                     showRecyclerViewHideNoRecordFound()
+                    addDataToRecyclerView(response.data!!)
                 }
                 is Resource.Error -> {
-                    hideProgressbar()
                     hideRecyclerViewShowNoRecordFound()
+                    hideProgressbar()
                     showSnackBar(
                         mBinding.root,
                         response.message ?: "An unknown error occurred.",
@@ -97,6 +98,10 @@ class CartListFragment : BaseFragment() {
         hideProgressbar()
         mBinding.rvCartItems.apply {
             adapter = mAdapter
+
+            if(cartItems.size == 1 && cartItems[0].stock_quantity == "0") {
+                mBinding.layoutPricingDetails.visibility = GONE
+            }
 
             mAdapter.submitList(cartItems)
 
@@ -153,13 +158,14 @@ class CartListFragment : BaseFragment() {
         mBinding.rvCartItems.isVisible = false
         mBinding.layoutPricingDetails.isVisible = false
         mBinding.tvNoCartItemFound.isVisible = true
+        hideProgressbar()
     }
 
     private fun showRecyclerViewHideNoRecordFound() {
-
         mBinding.rvCartItems.isVisible = true
         mBinding.layoutPricingDetails.isVisible = true
         mBinding.tvNoCartItemFound.isVisible = false
+        hideProgressbar()
     }
 
 }
