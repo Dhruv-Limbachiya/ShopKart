@@ -1,8 +1,10 @@
 package com.example.shopkart.ui.fragments.product_detail
 
+import android.content.Context
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.data.model.Product
@@ -10,6 +12,7 @@ import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.util.ObservableString
 import com.example.shopkart.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
@@ -19,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val firebaseUtil: FirebaseUtil,
+    @ApplicationContext private val application: Context
 ) : BaseViewModel() {
 
     val observableProductImageUri = ObservableString()
@@ -26,6 +30,8 @@ class ProductDetailViewModel @Inject constructor(
     val observableProductPrice = ObservableString()
     val observableProductDescription = ObservableString()
     val observableProductStockQuantity = ObservableString()
+
+    val observableOutOfStock = ObservableBoolean(false)
 
     private var _response = MutableLiveData<Resource<Any>>()
     val response: LiveData<Resource<Any>> = _response
@@ -63,7 +69,7 @@ class ProductDetailViewModel @Inject constructor(
     /**
      * Make a call to Firestore to check if the product is already added or not.
      */
-    fun checkProductAlreadyExistInCartItemInFireStore(productId: String)  {
+    fun checkProductAlreadyExistInCartItemInFireStore(productId: String) {
         firebaseUtil.checkProductAlreadyExist(productId) {
             _cartItemExist.value = it
         }
@@ -77,6 +83,15 @@ class ProductDetailViewModel @Inject constructor(
         observableProductTitle.set(data.title)
         observableProductPrice.set(data.price)
         observableProductDescription.set(data.description)
-        observableProductStockQuantity.set(data.stock_quantity)
+
+        if (data.stock_quantity.toInt() == 0) {
+            observableProductStockQuantity.set(application.resources.getString(R.string.text_out_stock))
+            observableOutOfStock.set(true)
+            observableAddToCartButtonVisible.set(false)
+        } else {
+            observableProductStockQuantity.set(data.stock_quantity)
+            observableOutOfStock.set(false)
+        }
+
     }
 }

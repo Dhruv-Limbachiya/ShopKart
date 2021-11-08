@@ -98,6 +98,7 @@ class ProductDetailFragment : BaseFragment() {
             when (status) {
                 is Resource.Success -> {
                     hideProgressbar()
+
                     product = status.data as Product
 
                     buttonVisibility()
@@ -151,7 +152,7 @@ class ProductDetailFragment : BaseFragment() {
      *  Case 2 : If the product is not owned by the current user.
      */
     private fun buttonVisibility() {
-        if(!cartItemExist && userId != mSharePreference.getString(R.string.prefUserId)) {
+        if(!cartItemExist && userId != mSharePreference.getString(R.string.prefUserId) && !mViewModel.observableOutOfStock.get()) {
             mViewModel.observableAddToCartButtonVisible.set(true)
             mViewModel.observableGoToCartVisible.set(false)
         } else if(cartItemExist) {

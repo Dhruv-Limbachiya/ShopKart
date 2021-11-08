@@ -101,7 +101,6 @@
                         android:id="@+id/tv_cart_item_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{cart.cart_quantity}"
                         tools:text="1"
                         android:layout_marginStart="@dimen/dimen_8dp"
                         android:paddingHorizontal="@dimen/dimen_16dp"

@@ -76,6 +76,22 @@ class CartListAdapter :
                 mStockQuantity = item.stock_quantity.toInt()
                 mCartQuantity = item.cart_quantity.toInt()
 
+                if(mStockQuantity == 0) {
+                    // Hide "+" and "-" views.
+                    binding.ivAdd.isVisible = false
+                    binding.ivRemove.isVisible = false
+
+                    binding.tvCartItemQuantity.text = binding.root.context.resources.getString(R.string.text_out_stock)
+                    binding.tvCartItemQuantity.setTextColor(binding.root.context.resources.getColor(R.color.primary))
+
+                } else {
+                    // Show "+" and "-" views.
+                    binding.ivAdd.isVisible = true
+                    binding.ivRemove.isVisible = true
+                    binding.tvCartItemQuantity.text = item.cart_quantity
+                    binding.tvCartItemQuantity.setTextColor(binding.root.context.resources.getColor(R.color.gray))
+                }
+
                 binding.ivDeleteProduct.setOnClickListener {
                     deleteProductListener?.let {
                         it(cartItem,true)
