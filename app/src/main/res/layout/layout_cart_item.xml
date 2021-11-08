@@ -104,8 +104,8 @@
                         android:text="@{cart.cart_quantity}"
                         tools:text="1"
                         android:layout_marginStart="@dimen/dimen_8dp"
-                        android:paddingHorizontal="@dimen/dimen_10dp"
-                        android:paddingVertical="@dimen/dimen_8dp"
+                        android:paddingHorizontal="@dimen/dimen_16dp"
+                        android:paddingVertical="@dimen/dimen_4dp"
                         android:background="@drawable/drawable_white_border_background"/>
 
                     <ImageButton
