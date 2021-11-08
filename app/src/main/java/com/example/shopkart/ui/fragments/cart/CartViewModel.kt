@@ -41,9 +41,11 @@ class CartViewModel @Inject constructor(
 
             var total = 0.0
 
-            for (cartItem in it.data!!) {
-                subTotal += (cartItem.price?.toDouble()
-                    ?.times(cartItem.cart_quantity?.toDouble() ?: 0.0) ?: 0.0)
+            it.data?.let { list ->
+                for (cartItem in list) {
+                    subTotal += cartItem.price.toDouble()
+                        .times(cartItem.cart_quantity.toDouble())
+                }
             }
 
             total = DEFAULT_SHIPPING_CHARGE + subTotal
@@ -60,15 +62,28 @@ class CartViewModel @Inject constructor(
     fun removeCartItem(cartItemId: String) {
         firebaseUtil.removeCartItemOnFireStoreDb(cartItemId) {
             _status.postValue(it)
+            refreshCartItemList()
+        }
+    }
+
+    /**
+     * Updates cart item documents with the latest data.
+     */
+    fun updateCartItemData(id: String, data: HashMap<String, Any>) {
+        firebaseUtil.updateCart(id,data) {
+            _status.postValue(it)
+            refreshCartItemList()
         }
     }
 
     /**
      * Refresh the cart items data.
      */
-    fun refreshCartItemList() {
+    private fun refreshCartItemList() {
         loadCartItems()
     }
+
+
 
 
     companion object {

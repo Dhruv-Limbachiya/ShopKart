@@ -279,6 +279,7 @@ class FirebaseUtil {
      */
     fun getCartItems(onResponse: (Resource<List<CartItem>>) -> Unit) {
         firebaseAuth.currentUser?.uid?.let { userId ->
+            onResponse(Resource.Loading())
             fireStoreDb
                 .collection(CART_ITEM_COLLECTION)
                 .whereEqualTo(CART_USER_ID, userId)
@@ -310,6 +311,7 @@ class FirebaseUtil {
      * Removes the specified cart item from the "cart_items" collection on FireStore db.
      */
     fun removeCartItemOnFireStoreDb(cartItemId: String,onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
         fireStoreDb.collection(CART_ITEM_COLLECTION)
             .document(cartItemId)
             .delete()
@@ -321,15 +323,34 @@ class FirebaseUtil {
             }
     }
 
+
+    /**
+     * Updates the cart item data.
+     */
+    fun updateCart(cartItemId: String,data: HashMap<String,Any>,onResponse: (Resource<String>) -> Unit) {
+        fireStoreDb.collection(CART_ITEM_COLLECTION)
+            .document(cartItemId)
+            .update(data)
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Cart updated."))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message.toString()))
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"
-        const val CART_ITEM_COLLECTION = "cart_items"
         const val PROFILE = "profile_images"
         const val PRODUCTS = "products"
         const val TAG = "FirebaseUtil"
         const val USER_ID = "user_id"
+
+        // Cart collection and its fields
+        const val CART_ITEM_COLLECTION = "cart_items"
         const val CART_PRODUCT_ID = "productId"
         const val CART_USER_ID = "userId"
+        const val CART_ITEM_QUANTITY = "cart_quantity"
     }
 }
