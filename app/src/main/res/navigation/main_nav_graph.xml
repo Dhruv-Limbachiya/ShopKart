@@ -84,6 +84,21 @@
         android:label="@string/text_cart"
         tools:layout="@layout/fragment_cart_list"/>
 
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.shopkart.ui.fragments.address.AddressFragment"
+        android:label="My Address"
+        tools:layout="@layout/fragment_address">
+        <action
+            android:id="@+id/action_addressFragment_to_addressDetailFragment"
+            app:destination="@id/addressDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addressDetailFragment"
+        android:name="com.example.shopkart.ui.fragments.address_detail.AddressDetailFragment"
+        android:label="Add Address"
+        tools:layout="@layout/fragment_address_detail" />
 
     <action
         android:id="@+id/action_global_profileFragment"
@@ -92,9 +107,7 @@
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
-    <fragment
-        android:id="@+id/addressFragment"
-        android:name="com.example.shopkart.ui.fragments.address.AddressFragment"
-        android:label="AddressFragment" />
+
+
 
 </navigation>

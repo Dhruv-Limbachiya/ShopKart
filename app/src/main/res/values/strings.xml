@@ -68,4 +68,12 @@
     <string name="text_out_stock">Out of stock</string>
     <string name="text_no_addresses_found">No Address Found!</string>
     <string name="text_add_address">Add Address</string>
+    <string name="text_full_name">Full Name</string>
+    <string name="text_phone_number">Phone Number</string>
+    <string name="text_address">Address</string>
+    <string name="text_pincode">Zipcode/Pincode</string>
+    <string name="text_additional_note">Additional Note</string>
+    <string name="text_other">Other</string>
+    <string name="text_office">Office</string>
+    <string name="text_home">Home</string>
 </resources>

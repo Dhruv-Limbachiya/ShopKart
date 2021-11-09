@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.shopkart.databinding.FragmentAddressBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
 
@@ -26,7 +27,9 @@ class AddressFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.btnAddAddress.setOnClickListener {
-
+            this.findNavController().navigate(
+                    AddressFragmentDirections.actionAddressFragmentToAddressDetailFragment()
+                )
         }
     }
 }

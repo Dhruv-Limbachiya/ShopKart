@@ -3,6 +3,7 @@ package com.example.shopkart.data.firebase
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import com.example.shopkart.data.model.Address
 import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.data.model.User
@@ -246,7 +247,7 @@ class FirebaseUtil {
                 onResponse(Resource.Success("Product added to cart."))
             }
             .addOnFailureListener {
-                onResponse(Resource.Error(it.message)) // failed to retrieve product.
+                onResponse(Resource.Error(it.message))
             }
     }
 
@@ -338,6 +339,23 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Upload address details on Firestore db.
+     */
+    fun uploadAddressDetails(address: Address, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(ADDRESS_COLLECTION)
+            .document()
+            .set(address, SetOptions.merge())
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Address saved successfully"))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message))
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"
@@ -351,5 +369,8 @@ class FirebaseUtil {
         const val CART_PRODUCT_ID = "productId"
         const val CART_USER_ID = "userId"
         const val CART_ITEM_QUANTITY = "cart_quantity"
+
+        // Address Collection
+        const val ADDRESS_COLLECTION = "addresses"
     }
 }
