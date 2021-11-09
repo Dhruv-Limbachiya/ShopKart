@@ -36,4 +36,12 @@
         <item name="android:textColor">@color/item_value_text_color</item>
         <item name="android:textSize">@dimen/dimen_24sp</item>
     </style>
+
+    <style name="CustomOutlinedButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/primary</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/dimen_18sp</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:padding">@dimen/dimen_12dp</item>
+    </style>
 </resources>

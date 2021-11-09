@@ -66,7 +66,11 @@
         android:id="@+id/settingFragment"
         android:label="@string/text_settings"
         android:name="com.example.shopkart.ui.fragments.settings.SettingFragment"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addProductFragment"
@@ -88,5 +92,9 @@
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.shopkart.ui.fragments.address.AddressFragment"
+        android:label="AddressFragment" />
 
 </navigation>

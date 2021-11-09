@@ -66,4 +66,6 @@
     <string name="text_total">Total</string>
     <string name="text_checkout">Checkout</string>
     <string name="text_out_stock">Out of stock</string>
+    <string name="text_no_addresses_found">No Address Found!</string>
+    <string name="text_add_address">Add Address</string>
 </resources>

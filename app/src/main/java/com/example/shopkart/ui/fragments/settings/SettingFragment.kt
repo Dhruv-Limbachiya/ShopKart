@@ -42,6 +42,15 @@ class SettingFragment : BaseFragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mBinding.tvSettingsAddresses.setOnClickListener {
+            this.findNavController().navigate(
+                SettingFragmentDirections.actionSettingFragmentToAddressFragment()
+            )
+        }
+    }
+
     /**
      * Observe changes in the LiveData.
      */
