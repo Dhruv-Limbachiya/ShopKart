@@ -76,4 +76,6 @@
     <string name="text_other">Other</string>
     <string name="text_office">Office</string>
     <string name="text_home">Home</string>
+    <string name="text_full_address">%s - %s</string>
+    <string name="text_phone_number_with_country_code">+%d-%s</string>
 </resources>

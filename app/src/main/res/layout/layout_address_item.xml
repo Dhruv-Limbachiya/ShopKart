@@ -13,6 +13,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:cardUseCompatPadding="true"
         app:contentPadding="@dimen/dimen_8dp">
 
@@ -56,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_8dp"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="@{address.address}"
+                android:text="@{String.format(@string/text_full_address,address.address,address.zipCode)}"
                 android:textSize="@dimen/dimen_16sp"
                 android:layout_marginTop="@dimen/dimen_2dp"
                 android:includeFontPadding="false"
@@ -71,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_8dp"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="@{address.mobileNumber}"
+                android:text="@{String.format(@string/text_phone_number_with_country_code,91,address.mobileNumber)}"
                 android:textSize="@dimen/dimen_16sp"
                 android:layout_marginTop="@dimen/dimen_2dp"
                 android:includeFontPadding="false"

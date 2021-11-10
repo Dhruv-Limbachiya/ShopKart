@@ -114,7 +114,7 @@ class ProductFragment : BaseFragment() {
     }
 
     /**
-     * Adds products in the recyclerview adapter.
+     * Adds products in the recyclerview.
      */
     private fun addDataToRecyclerView(products: List<Product>) {
         mBinding.rvProducts.apply {

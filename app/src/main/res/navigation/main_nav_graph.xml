@@ -86,9 +86,9 @@
 
     <fragment
         android:id="@+id/addressFragment"
-        android:name="com.example.shopkart.ui.fragments.my_address.AddressFragment"
+        android:name="com.example.shopkart.ui.fragments.my_address.MyAddressFragment"
         android:label="My Address"
-        tools:layout="@layout/fragment_address">
+        tools:layout="@layout/fragment_my_address">
         <action
             android:id="@+id/action_addressFragment_to_addressDetailFragment"
             app:destination="@id/addressDetailFragment" />

@@ -311,7 +311,7 @@ class FirebaseUtil {
     /**
      * Removes the specified cart item from the "cart_items" collection on FireStore db.
      */
-    fun removeCartItemOnFireStoreDb(cartItemId: String,onResponse: (Resource<String>) -> Unit) {
+    fun removeCartItemOnFireStoreDb(cartItemId: String, onResponse: (Resource<String>) -> Unit) {
         fireStoreDb.collection(CART_ITEM_COLLECTION)
             .document(cartItemId)
             .delete()
@@ -327,7 +327,11 @@ class FirebaseUtil {
     /**
      * Updates the cart item data.
      */
-    fun updateCart(cartItemId: String,data: HashMap<String,Any>,onResponse: (Resource<String>) -> Unit) {
+    fun updateCart(
+        cartItemId: String,
+        data: HashMap<String, Any>,
+        onResponse: (Resource<String>) -> Unit
+    ) {
         fireStoreDb.collection(CART_ITEM_COLLECTION)
             .document(cartItemId)
             .update(data)
@@ -354,6 +358,39 @@ class FirebaseUtil {
             .addOnFailureListener {
                 onResponse(Resource.Error(it.message))
             }
+    }
+
+    /**
+     * Gets the currently logged in user addresses from the Firestore db.
+     */
+    fun getMyAddressesFromFireStore(onResponse: (Resource<List<Address>>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { uid ->
+            onResponse(Resource.Loading())
+            fireStoreDb.collection(ADDRESS_COLLECTION)
+                .whereEqualTo(USER_ID, uid)
+                .get()
+                .addOnSuccessListener {
+                    val documents = it.documents
+
+                    if (documents.size > 0) {
+                        val addresses = mutableListOf<Address>()
+                        for (doc in documents) {
+                            // Convert each non-nullable doc into Address Object and assign doc id as address id.
+                            doc.toObject(Address::class.java)?.let { address ->
+                                address.id = doc.id
+                                addresses.add(address) // Add address to addresses list.
+                            }
+                        }
+                        onResponse(Resource.Success(addresses))
+                    } else {
+                        onResponse(Resource.Error("Address not found!"))
+                    }
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message))
+                }
+
+        }
     }
 
     companion object {
