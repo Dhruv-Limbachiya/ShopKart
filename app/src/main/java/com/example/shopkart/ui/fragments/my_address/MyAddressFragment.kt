@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shopkart.R
 import com.example.shopkart.data.model.Address
 import com.example.shopkart.databinding.FragmentMyAddressBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
 import com.example.shopkart.util.Resource
+import com.example.shopkart.util.SwipeGestureCallback
 import com.example.shopkart.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,6 +34,15 @@ class MyAddressFragment : BaseFragment() {
     @Inject
     lateinit var mAdapter: AddressListAdapter
 
+    private lateinit var mEditTouchHelper: ItemTouchHelper
+
+    private lateinit var mDeleteTouchHelper: ItemTouchHelper
+
+    private lateinit var swipeRightToDeleteHandler: SwipeGestureCallback
+
+    private lateinit var swipeLeftToEditHandler: SwipeGestureCallback
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +60,14 @@ class MyAddressFragment : BaseFragment() {
                 MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment()
             )
         }
+
+        enableSwipeGestures()
+
+        // Edit Item Touch Helper instance
+        mEditTouchHelper = ItemTouchHelper(swipeLeftToEditHandler)
+
+        // Delete Item Touch Helper instance
+        mDeleteTouchHelper = ItemTouchHelper(swipeRightToDeleteHandler)
     }
 
     override fun onResume() {
@@ -72,6 +94,27 @@ class MyAddressFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideProgressbar()
                     hideRecyclerViewShowNoRecordFound()
+//                    showSnackBar(
+//                        mBinding.root,
+//                        response.message ?: "An unknown error occurred.",
+//                        true
+//                    )
+                }
+                is Resource.Loading -> showProgressbar()
+            }
+        }
+
+        mViewModel.status.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressbar()
+                    mViewModel.getMyAddresses()
+                    showSnackBar(mBinding.root, response.data ?: "Success")
+                    showRecyclerViewHideNoRecordFound()
+                }
+                is Resource.Error -> {
+                    hideProgressbar()
+                    hideRecyclerViewShowNoRecordFound()
                     showSnackBar(
                         mBinding.root,
                         response.message ?: "An unknown error occurred.",
@@ -87,6 +130,11 @@ class MyAddressFragment : BaseFragment() {
      * Adds addresses in the recyclerview.
      */
     private fun addDataToRecyclerView(address: List<Address>) {
+        // Attaches ItemTouchHelper to Recyclerview.
+        mEditTouchHelper.attachToRecyclerView(mBinding.rvAddress)
+
+        mDeleteTouchHelper.attachToRecyclerView(mBinding.rvAddress)
+
         mBinding.rvAddress.apply {
             adapter = mAdapter
             mAdapter.submitList(address)
@@ -105,4 +153,37 @@ class MyAddressFragment : BaseFragment() {
         mBinding.rvAddress.isVisible = true
         mBinding.tvNoAddressesFound.isVisible = false
     }
+
+    /**
+     * Enables and configures swipe gestures for the Recyclerview item.
+     */
+    fun enableSwipeGestures() {
+        //Handles Left swipe gesture. Navigates to address detail screen.
+        swipeLeftToEditHandler = object : SwipeGestureCallback(
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_edit)!!,
+            ItemTouchHelper.RIGHT
+        ) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val addressToEdit = mAdapter.currentList[viewHolder.adapterPosition]
+                showSnackBar(mBinding.root, addressToEdit.name)
+                findNavController().navigate(
+                    MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(
+                        addressToEdit
+                    )
+                )
+            }
+        }
+
+        // Handles Right swipe gesture. Delete address from address collection on Firestore db.
+        swipeRightToDeleteHandler = object : SwipeGestureCallback(
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)!!,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val addressToDelete = mAdapter.currentList[viewHolder.adapterPosition]
+                mViewModel.deleteAddress(addressToDelete.id)
+            }
+        }
+    }
+
 }

@@ -393,6 +393,21 @@ class FirebaseUtil {
         }
     }
 
+    /**
+     * Delete the specified address from the "addresses" collection on FireStore db.
+     */
+    fun deleteAddressOnFireStoreDb(addressId: String, onResponse: (Resource<String>) -> Unit) {
+        fireStoreDb.collection(ADDRESS_COLLECTION)
+            .document(addressId)
+            .delete()
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Address deleted!"))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message.toString()))
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PRODUCT_COLLECTION = "products"

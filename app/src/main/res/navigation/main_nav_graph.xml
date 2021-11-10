@@ -92,13 +92,25 @@
         <action
             android:id="@+id/action_addressFragment_to_addressDetailFragment"
             app:destination="@id/addressDetailFragment" />
+        <action
+            android:id="@+id/action_addressFragment_to_addressDetailFragment2"
+            app:destination="@id/addressDetailFragment" />
+        <action
+            android:id="@+id/action_addressFragment_to_addressDetailFragment3"
+            app:destination="@id/addressDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addressDetailFragment"
         android:name="com.example.shopkart.ui.fragments.address_detail.AddressDetailFragment"
         android:label="Add Address"
-        tools:layout="@layout/fragment_address_detail" />
+        tools:layout="@layout/fragment_address_detail" >
+        <argument
+            android:name="address"
+            app:argType="com.example.shopkart.data.model.Address"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_profileFragment"
@@ -107,7 +119,5 @@
     <action
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
-
-
 
 </navigation>

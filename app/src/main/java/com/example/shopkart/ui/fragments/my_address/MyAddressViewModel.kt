@@ -25,9 +25,21 @@ class MyAddressViewModel @Inject constructor(
         getMyAddresses()
     }
 
+    /**
+     * Get user addresses
+     */
     fun getMyAddresses() {
         firebaseUtil.getMyAddressesFromFireStore {
             _addressList.postValue(it)
+        }
+    }
+
+    /**
+     * Delete user address.
+     */
+    fun deleteAddress(id: String) {
+        firebaseUtil.deleteAddressOnFireStoreDb(id) {
+            _status.postValue(it)
         }
     }
 }
