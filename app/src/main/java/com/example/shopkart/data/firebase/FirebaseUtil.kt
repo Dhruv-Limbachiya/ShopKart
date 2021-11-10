@@ -380,7 +380,9 @@ class FirebaseUtil {
                                 address.id = doc.id
                                 addresses.add(address) // Add address to addresses list.
                             }
+
                         }
+                        Log.i(TAG, "getMyAddressesFromFireStore: : $addresses")
                         onResponse(Resource.Success(addresses))
                     } else {
                         onResponse(Resource.Error("Address not found!"))
@@ -407,6 +409,22 @@ class FirebaseUtil {
                 onResponse(Resource.Error(it.message.toString()))
             }
     }
+
+    /**
+     * Update address info on Firestore Db.
+     */
+    fun updateAddressDetailOnFireStore(address: Address, onResponse: (Resource<String>) -> Unit) {
+        fireStoreDb.collection(ADDRESS_COLLECTION)
+            .document(address.id)
+            .set(address, SetOptions.merge())
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Address updated!"))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message.toString()))
+            }
+    }
+
 
     companion object {
         const val USER_COLLECTION = "users"

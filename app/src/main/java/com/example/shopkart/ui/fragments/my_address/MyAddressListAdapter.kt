@@ -49,5 +49,5 @@ class AddressListAdapter :
 
 class AddressDiffCallback : DiffUtil.ItemCallback<Address>() {
     override fun areItemsTheSame(oldItem: Address, newItem: Address) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Address, newItem: Address) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Address, newItem: Address) = oldItem.hashCode() == newItem.hashCode()
 }

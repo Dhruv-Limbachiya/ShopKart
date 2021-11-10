@@ -55,6 +55,7 @@ class MyAddressFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mBinding.btnAddAddress.setOnClickListener {
             this.findNavController().navigate(
                 MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment()
@@ -94,11 +95,7 @@ class MyAddressFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideProgressbar()
                     hideRecyclerViewShowNoRecordFound()
-//                    showSnackBar(
-//                        mBinding.root,
-//                        response.message ?: "An unknown error occurred.",
-//                        true
-//                    )
+//                    showSnackBar(mBinding.root, response.message ?: "An unknown error occurred.", true)
                 }
                 is Resource.Loading -> showProgressbar()
             }
@@ -130,15 +127,15 @@ class MyAddressFragment : BaseFragment() {
      * Adds addresses in the recyclerview.
      */
     private fun addDataToRecyclerView(address: List<Address>) {
-        // Attaches ItemTouchHelper to Recyclerview.
-        mEditTouchHelper.attachToRecyclerView(mBinding.rvAddress)
-
-        mDeleteTouchHelper.attachToRecyclerView(mBinding.rvAddress)
-
         mBinding.rvAddress.apply {
             adapter = mAdapter
             mAdapter.submitList(address)
         }
+
+        // Attaches ItemTouchHelper to Recyclerview.
+        mEditTouchHelper.attachToRecyclerView(mBinding.rvAddress)
+
+        mDeleteTouchHelper.attachToRecyclerView(mBinding.rvAddress)
     }
 
     /**
@@ -157,7 +154,7 @@ class MyAddressFragment : BaseFragment() {
     /**
      * Enables and configures swipe gestures for the Recyclerview item.
      */
-    fun enableSwipeGestures() {
+    private fun enableSwipeGestures() {
         //Handles Left swipe gesture. Navigates to address detail screen.
         swipeLeftToEditHandler = object : SwipeGestureCallback(
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_edit)!!,
@@ -165,7 +162,6 @@ class MyAddressFragment : BaseFragment() {
         ) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val addressToEdit = mAdapter.currentList[viewHolder.adapterPosition]
-                showSnackBar(mBinding.root, addressToEdit.name)
                 findNavController().navigate(
                     MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(
                         addressToEdit

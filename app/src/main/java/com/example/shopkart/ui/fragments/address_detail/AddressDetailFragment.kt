@@ -37,6 +37,15 @@ class AddressDetailFragment : BaseFragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val address = AddressDetailFragmentArgs.fromBundle(requireArguments()).address
+        address?.let {
+            mViewModel.setAddressInfo(it)
+        }
+    }
+
     /**
      * Observe changes in the LiveData.
      */
