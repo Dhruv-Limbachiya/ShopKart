@@ -1,4 +1,4 @@
-package com.example.shopkart.ui.fragments.address
+package com.example.shopkart.ui.fragments.my_address
 
 import android.os.Bundle
 import android.view.LayoutInflater

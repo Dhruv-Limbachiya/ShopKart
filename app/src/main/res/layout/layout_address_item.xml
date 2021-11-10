@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="address"
+            type="com.example.shopkart.data.model.Address" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/dimen_8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_full_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@{address.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_18sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_address_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Dhruv Limbachiya" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawable_gradient_splash_background"
+                android:fontFamily="@font/quicksand_medium"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/dimen_10dp"
+                android:paddingVertical="@dimen/dimen_2dp"
+                android:text="@{address.type}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Home" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_zipcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@{address.address}"
+                android:textSize="@dimen/dimen_16sp"
+                android:layout_marginTop="@dimen/dimen_2dp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_full_name"
+                tools:text="Adinathnagar,Ahmedabad-382415 Ahmedabad Ahmedabad-382415" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@{address.mobileNumber}"
+                android:textSize="@dimen/dimen_16sp"
+                android:layout_marginTop="@dimen/dimen_2dp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_zipcode"
+                tools:text="+91 9687029630" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

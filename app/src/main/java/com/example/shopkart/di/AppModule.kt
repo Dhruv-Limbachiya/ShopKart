@@ -5,6 +5,7 @@ import com.example.shopkart.ShopKartApplication
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.ui.fragments.cart.CartListAdapter
 import com.example.shopkart.ui.fragments.dashboard.DashboardProductsAdapter
+import com.example.shopkart.ui.fragments.my_address.AddressListAdapter
 import com.example.shopkart.ui.fragments.product.ProductsAdapter
 import com.example.shopkart.util.SharePreferenceUtil
 import dagger.Module
@@ -46,4 +47,7 @@ object AppModule {
     @Provides
     fun provideCartListAdapter() = CartListAdapter()
 
+    @Singleton
+    @Provides
+    fun provideAddressListAdapter() = AddressListAdapter()
 }
