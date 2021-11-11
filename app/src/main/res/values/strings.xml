@@ -78,4 +78,7 @@
     <string name="text_home">Home</string>
     <string name="text_full_address">%s - %s</string>
     <string name="text_phone_number_with_country_code">+%d-%s</string>
+    <string name="text_update">Update</string>
+    <string name="title_add_address">Add Address</string>
+    <string name="title_edit_address">Edit Address</string>
 </resources>

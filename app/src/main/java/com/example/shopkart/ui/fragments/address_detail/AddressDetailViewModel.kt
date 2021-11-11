@@ -34,6 +34,7 @@ class AddressDetailViewModel @Inject constructor(
     var observableTypeOffice = ObservableBoolean()
     var observableTypeOther = ObservableBoolean()
     var observableOther = ObservableString()
+    var observableButtonName = ObservableString()
 
     /**
      * Submits the address details on Firestore db.

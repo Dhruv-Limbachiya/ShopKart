@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.shopkart.databinding.FragmentAddressDetailBinding
+import com.example.shopkart.R
+import com.example.shopkart.data.model.Address
 import com.example.shopkart.ui.fragments.base.BaseFragment
+import com.example.shopkart.databinding.FragmentAddressDetailBinding
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +43,23 @@ class AddressDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val address = AddressDetailFragmentArgs.fromBundle(requireArguments()).address
+
+        setButtonText(address)
+
         address?.let {
             mViewModel.setAddressInfo(it)
+        }
+
+    }
+
+    /**
+     * Sets button text according to user action (Edit or Add).
+     */
+    private fun setButtonText(address: Address?) {
+        if(address != null) {
+            mViewModel.observableButtonName.set(getString(R.string.text_update))
+        } else {
+            mViewModel.observableButtonName.set(getString(R.string.text_submit))
         }
     }
 

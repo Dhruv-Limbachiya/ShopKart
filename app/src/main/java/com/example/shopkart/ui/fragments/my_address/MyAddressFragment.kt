@@ -58,7 +58,7 @@ class MyAddressFragment : BaseFragment() {
 
         mBinding.btnAddAddress.setOnClickListener {
             this.findNavController().navigate(
-                MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment()
+                MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(title = getString(R.string.title_add_address))
             )
         }
 
@@ -164,7 +164,8 @@ class MyAddressFragment : BaseFragment() {
                 val addressToEdit = mAdapter.currentList[viewHolder.adapterPosition]
                 findNavController().navigate(
                     MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(
-                        addressToEdit
+                       title = getString(R.string.title_edit_address),
+                        address = addressToEdit
                     )
                 )
             }

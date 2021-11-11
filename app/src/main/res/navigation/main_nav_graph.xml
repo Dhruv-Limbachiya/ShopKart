@@ -103,13 +103,17 @@
     <fragment
         android:id="@+id/addressDetailFragment"
         android:name="com.example.shopkart.ui.fragments.address_detail.AddressDetailFragment"
-        android:label="Add Address"
+        android:label="{title}"
         tools:layout="@layout/fragment_address_detail" >
         <argument
             android:name="address"
             app:argType="com.example.shopkart.data.model.Address"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Address Detail" />
     </fragment>
 
     <action
