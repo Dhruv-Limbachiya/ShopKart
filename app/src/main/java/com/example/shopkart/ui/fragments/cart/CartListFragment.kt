@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopkart.R
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.CartItem
@@ -43,7 +44,21 @@ class CartListFragment : BaseFragment() {
 
         observeLiveEvents()
 
+
+
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.buttonCheckout.setOnClickListener {
+             // Navigates [AddressFragment] to select address.
+            this.findNavController()
+                .navigate(
+                    CartListFragmentDirections.actionCartListFragmentToAddressFragment(true)
+                )
+        }
     }
 
     /**

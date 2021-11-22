@@ -12,13 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/gray</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.ShopKart">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBarOverlay">true</item>
-
     </style>
 
 </resources>

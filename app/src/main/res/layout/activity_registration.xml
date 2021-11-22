@@ -203,6 +203,7 @@
                     android:fontFamily="@font/quicksand_medium"
                     android:text="@string/text_already_have_an_account"
                     android:textSize="@dimen/dimen_16sp"
+                    android:textColor="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/button_registration" />

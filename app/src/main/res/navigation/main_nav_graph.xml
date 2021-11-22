@@ -82,7 +82,11 @@
         android:id="@+id/cartListFragment"
         android:name="com.example.shopkart.ui.fragments.cart.CartListFragment"
         android:label="@string/text_cart"
-        tools:layout="@layout/fragment_cart_list"/>
+        tools:layout="@layout/fragment_cart_list">
+        <action
+            android:id="@+id/action_cartListFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addressFragment"
@@ -93,11 +97,12 @@
             android:id="@+id/action_addressFragment_to_addressDetailFragment"
             app:destination="@id/addressDetailFragment" />
         <action
-            android:id="@+id/action_addressFragment_to_addressDetailFragment2"
-            app:destination="@id/addressDetailFragment" />
-        <action
-            android:id="@+id/action_addressFragment_to_addressDetailFragment3"
-            app:destination="@id/addressDetailFragment" />
+            android:id="@+id/action_addressFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+        <argument
+            android:name="selectAddress"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -115,6 +120,19 @@
             app:argType="string"
             android:defaultValue="Address Detail" />
     </fragment>
+
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.example.shopkart.ui.fragments.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout">
+
+        <argument
+            android:name="address"
+            app:argType="com.example.shopkart.data.model.Address" />
+
+    </fragment>
+
 
     <action
         android:id="@+id/action_global_profileFragment"

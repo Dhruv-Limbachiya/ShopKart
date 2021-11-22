@@ -42,6 +42,7 @@ class MyAddressFragment : BaseFragment() {
 
     private lateinit var swipeLeftToEditHandler: SwipeGestureCallback
 
+    private var isFromCartToAddressFlow = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +50,9 @@ class MyAddressFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMyAddressBinding.inflate(inflater, container, false)
+
+        isFromCartToAddressFlow = MyAddressFragmentArgs.fromBundle(requireArguments()).selectAddress
+
         observeLiveEvents()
         return mBinding.root
     }
@@ -58,7 +62,11 @@ class MyAddressFragment : BaseFragment() {
 
         mBinding.btnAddAddress.setOnClickListener {
             this.findNavController().navigate(
-                MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(title = getString(R.string.title_add_address))
+                MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(
+                    title = getString(
+                        R.string.title_add_address
+                    )
+                )
             )
         }
 
@@ -95,7 +103,6 @@ class MyAddressFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideProgressbar()
                     hideRecyclerViewShowNoRecordFound()
-//                    showSnackBar(mBinding.root, response.message ?: "An unknown error occurred.", true)
                 }
                 is Resource.Loading -> showProgressbar()
             }
@@ -132,6 +139,20 @@ class MyAddressFragment : BaseFragment() {
             mAdapter.submitList(address)
         }
 
+        /**
+         * isFromCartToAddressFlow : Checks if user navigated here to select address for checkout purpose ,
+         * if true then navigates to [CheckoutFragment] with address as a parameter.
+         */
+        if(isFromCartToAddressFlow) {
+            mAdapter.setOnAddressSelectedListener {
+                // Navigates to [CheckoutFragment]
+                this.findNavController()
+                    .navigate(
+                        MyAddressFragmentDirections.actionAddressFragmentToCheckoutFragment(it)
+                    )
+            }
+        }
+
         // Attaches ItemTouchHelper to Recyclerview.
         mEditTouchHelper.attachToRecyclerView(mBinding.rvAddress)
 
@@ -164,7 +185,7 @@ class MyAddressFragment : BaseFragment() {
                 val addressToEdit = mAdapter.currentList[viewHolder.adapterPosition]
                 findNavController().navigate(
                     MyAddressFragmentDirections.actionAddressFragmentToAddressDetailFragment(
-                       title = getString(R.string.title_edit_address),
+                        title = getString(R.string.title_edit_address),
                         address = addressToEdit
                     )
                 )
