@@ -44,8 +44,6 @@ class CartListFragment : BaseFragment() {
 
         observeLiveEvents()
 
-
-
         return mBinding.root
     }
 

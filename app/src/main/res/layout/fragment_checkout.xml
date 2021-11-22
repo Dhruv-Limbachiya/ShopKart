@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_color_shade1">
+        android:background="@color/white"
+        >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -36,13 +37,16 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/quicksand_bold"
                     android:padding="@dimen/dimen_12dp"
+                    android:background="@color/white_color_shade1"
                     android:text="@string/checkout_lbl_product_items"
                     android:textSize="@dimen/dimen_18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_cart_list_items"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/layout_cart_item"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_selected_address"
@@ -50,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/quicksand_bold"
                     android:padding="@dimen/dimen_12dp"
+                    android:background="@color/white_color_shade1"
                     android:text="@string/checkout_lbl_selected_address"
                     android:textSize="@dimen/dimen_18sp" />
 
@@ -59,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_16sp">
+                    android:padding="@dimen/dimen_16dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_checkout_address_type"
@@ -68,6 +73,7 @@
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_18sp"
+                        android:text="@{viewModel.observableAddressType}"
                         tools:text="Home" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -75,9 +81,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
+                        android:text="@{viewModel.observableFullName}"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
-                        android:text="@{viewModel.observableFullName}"
                         tools:text="Dhruv Limbachiya" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -85,9 +91,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
+                        android:text="@{viewModel.observableAddress}"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
-                        android:text="@{viewModel.observableAddress}"
                         tools:text="XYZ" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -95,9 +101,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
+                        android:text="@{viewModel.observableAdditionalNote}"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
-                        android:text="@{viewModel.observableAdditionalNote}"
                         tools:text="XYZ" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -105,10 +111,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
+                        android:text="@{viewModel.observableOtherDetails}"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         android:visibility="@{viewModel.observableOtherDetailsVisibility ? View.VISIBLE : View.GONE}"
-                        android:text="@{viewModel.observableOtherDetails}"
                         tools:text="XYZ" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -117,9 +123,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_4dp"
                         android:fontFamily="@font/quicksand_medium"
+                        android:text="@{viewModel.observablePhoneNumber}"
                         android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
-                        android:text="@{viewModel.observablePhoneNumber}"
                         tools:text="+91 1234567809" />
 
                 </LinearLayout>
@@ -130,6 +136,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/quicksand_bold"
                     android:padding="@dimen/dimen_12dp"
+                    android:background="@color/white_color_shade1"
                     android:text="@string/checkout_lbl_items_receipt"
                     android:textSize="@dimen/dimen_18sp" />
 
@@ -158,6 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand_medium"
+                            android:text="@{String.format(@string/product_price,viewModel.observableSubTotal)}"
                             android:textAlignment="center"
                             android:textSize="@dimen/dimen_16sp"
                             tools:text="$100" />
@@ -181,7 +189,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand_medium"
-                            android:text="$10.0"
+                            android:text="@{String.format(@string/product_price,viewModel.observableShippingCharge)}"
                             android:textAlignment="center"
                             android:textSize="@dimen/dimen_16sp" />
                     </LinearLayout>
@@ -204,6 +212,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand_medium"
+                            android:text="@{String.format(@string/product_price,viewModel.observableTotal)}"
                             android:textAlignment="center"
                             android:textSize="@dimen/dimen_16sp"
                             tools:text="$110" />
@@ -220,7 +229,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
             android:orientation="vertical"
             android:padding="@dimen/dimen_16dp"
             app:layout_constraintBottom_toBottomOf="parent"

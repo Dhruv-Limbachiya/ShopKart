@@ -5,16 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.shopkart.data.firebase.FirebaseUtil
+import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.databinding.FragmentCheckoutBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
+import com.example.shopkart.ui.fragments.cart.CartListAdapter
+import com.example.shopkart.util.Resource
+import com.example.shopkart.util.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Created By Dhruv Limbachiya on 22-11-2021 09:47 AM.
  */
+@AndroidEntryPoint
 class CheckoutFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentCheckoutBinding
+
     private val mViewModel: CheckoutViewModel by viewModels()
+
+    @Inject
+    lateinit var mAdapter: CartListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +40,46 @@ class CheckoutFragment : BaseFragment() {
         val address = CheckoutFragmentArgs.fromBundle(requireArguments()).address
         mViewModel.setCheckoutAddressDetails(address) // sets the address details into observables.
 
+        observeLiveEvents()
+
         return mBinding.root
     }
+
+    /**
+     * Observe the Live events
+     */
+    private fun observeLiveEvents() {
+        mViewModel.cartItemStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressbar()
+//                    showRecyclerViewHideNoRecordFound()
+                    addDataToRecyclerView(response.data!!)
+                }
+                is Resource.Error -> {
+//                    hideRecyclerViewShowNoRecordFound()
+                    hideProgressbar()
+                    showSnackBar(
+                        mBinding.root,
+                        response.message ?: "An unknown error occurred.",
+                        true
+                    )
+                }
+                is Resource.Loading -> showProgressbar()
+            }
+        }
+    }
+
+    /**
+     * Adds cart items in the recyclerview adapter.
+     */
+    private fun addDataToRecyclerView(cartItems: List<CartItem>) {
+        hideProgressbar()
+        mBinding.rvCartListItems.apply {
+            adapter = mAdapter
+            mAdapter.setIsEditable(false)
+            mAdapter.submitList(cartItems)
+        }
+    }
+
 }
