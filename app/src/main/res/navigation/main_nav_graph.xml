@@ -142,4 +142,8 @@
         android:id="@+id/action_global_settingFragment"
         app:destination="@id/settingFragment" />
 
+    <action
+        android:id="@+id/action_global_dashboard"
+        app:destination="@id/dashboardFragment" />
+
 </navigation>

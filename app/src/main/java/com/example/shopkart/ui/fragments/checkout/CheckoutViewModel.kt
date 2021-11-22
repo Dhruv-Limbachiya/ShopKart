@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.shopkart.data.firebase.FirebaseUtil
 import com.example.shopkart.data.model.Address
 import com.example.shopkart.data.model.CartItem
+import com.example.shopkart.data.model.Order
 import com.example.shopkart.data.model.Product
 import com.example.shopkart.ui.activities.base.BaseViewModel
 import com.example.shopkart.ui.fragments.cart.CartViewModel
@@ -41,7 +42,10 @@ class CheckoutViewModel @Inject constructor(
     val cartItemStatus: LiveData<Resource<List<CartItem>>> = _cartItemStatus
 
     private val products = mutableListOf<Product>()
+
     private val cartItems = mutableListOf<CartItem>()
+
+    var address: Address? = null
 
     init {
         getProducts()
@@ -52,6 +56,9 @@ class CheckoutViewModel @Inject constructor(
      * Set the address details into view observables.
      */
     fun setCheckoutAddressDetails(address: Address) {
+
+        this.address = address
+
         observableAddressType.set(address.type)
         observableFullName.set(address.name)
         observablePhoneNumber.set("+91 ${address.mobileNumber}")
@@ -122,6 +129,28 @@ class CheckoutViewModel @Inject constructor(
                 if (data.isNotEmpty()) {
                     products.addAll(data)
                 }
+            }
+        }
+    }
+
+    /**
+     * Places user order by storing order details on Firestore db.
+     */
+    fun placeOrder() {
+        firebaseUtil.firebaseAuth.currentUser?.uid?.let {
+            val order = Order(
+                it,
+                cartItems as ArrayList<CartItem>,
+                address,
+                "My order ${System.currentTimeMillis()}",
+                cartItems[0].image,
+                observableSubTotal.trimmed,
+                observableShippingCharge.trimmed,
+                observableTotal.trimmed
+            )
+
+            firebaseUtil.uploadOrderDetails(order) {
+                _status.postValue(it)
             }
         }
     }

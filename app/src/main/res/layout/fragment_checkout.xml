@@ -260,6 +260,7 @@
                 android:layout_height="wrap_content"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
+                android:onClick="@{() -> viewModel.placeOrder()}"
                 android:text="@string/text_place_order" />
 
         </LinearLayout>

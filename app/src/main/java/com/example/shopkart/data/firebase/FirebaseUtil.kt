@@ -3,10 +3,7 @@ package com.example.shopkart.data.firebase
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import com.example.shopkart.data.model.Address
-import com.example.shopkart.data.model.CartItem
-import com.example.shopkart.data.model.Product
-import com.example.shopkart.data.model.User
+import com.example.shopkart.data.model.*
 import com.example.shopkart.util.Resource
 import com.example.shopkart.util.getExtension
 import com.google.firebase.auth.FirebaseAuth
@@ -425,6 +422,22 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Uploads the order details on Firestore cloud.
+     */
+    fun uploadOrderDetails(order: Order, onResponse: (Resource<String>) -> Unit) {
+        onResponse(Resource.Loading())
+        fireStoreDb
+            .collection(ORDER_COLLECTION)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Order placed successfully"))
+            }
+            .addOnFailureListener {
+                onResponse(Resource.Error(it.message))
+            }
+    }
 
     companion object {
         const val USER_COLLECTION = "users"
@@ -442,5 +455,8 @@ class FirebaseUtil {
 
         // Address Collection
         const val ADDRESS_COLLECTION = "addresses"
+
+        // Order Collection
+        const val ORDER_COLLECTION = "orders"
     }
 }

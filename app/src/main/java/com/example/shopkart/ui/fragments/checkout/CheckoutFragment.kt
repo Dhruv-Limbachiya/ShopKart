@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.shopkart.data.firebase.FirebaseUtil
+import androidx.navigation.fragment.findNavController
+import com.example.shopkart.R
 import com.example.shopkart.data.model.CartItem
 import com.example.shopkart.databinding.FragmentCheckoutBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
@@ -38,6 +39,7 @@ class CheckoutFragment : BaseFragment() {
 
         // Fetches address argument from the bundle.
         val address = CheckoutFragmentArgs.fromBundle(requireArguments()).address
+
         mViewModel.setCheckoutAddressDetails(address) // sets the address details into observables.
 
         observeLiveEvents()
@@ -53,11 +55,9 @@ class CheckoutFragment : BaseFragment() {
             when (response) {
                 is Resource.Success -> {
                     hideProgressbar()
-//                    showRecyclerViewHideNoRecordFound()
                     addDataToRecyclerView(response.data!!)
                 }
                 is Resource.Error -> {
-//                    hideRecyclerViewShowNoRecordFound()
                     hideProgressbar()
                     showSnackBar(
                         mBinding.root,
@@ -66,6 +66,27 @@ class CheckoutFragment : BaseFragment() {
                     )
                 }
                 is Resource.Loading -> showProgressbar()
+            }
+        }
+
+        mViewModel.status.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                is Resource.Loading -> showProgressbar()
+
+                is Resource.Success -> {
+                    hideProgressbar()
+                    showSnackBar(mBinding.root, status.data ?: "Success", false)
+                    findNavController().popBackStack(R.id.dashboardFragment,false)
+                }
+                is Resource.Error -> {
+                    hideProgressbar()
+                    showSnackBar(
+                        mBinding.root,
+                        status.message ?: "An unknown error occurred.",
+                        true
+                    )
+                }
+
             }
         }
     }
