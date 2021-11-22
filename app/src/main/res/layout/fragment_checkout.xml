@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_color_shade1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_product_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:padding="@dimen/dimen_12dp"
+                android:text="@string/checkout_lbl_product_items"
+                android:textSize="@dimen/dimen_18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cart_list_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_selected_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:padding="@dimen/dimen_12dp"
+                android:text="@string/checkout_lbl_selected_address"
+                android:textSize="@dimen/dimen_18sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_checkout_address_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_16sp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_checkout_address_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_18sp"
+                    tools:text="Home" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_checkout_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="Dhruv Limbachiya" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_checkout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="XYZ" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_checkout_additional_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="XYZ" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_checkout_other_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="XYZ" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_mobile_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/item_value_text_color"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="+91 1234567809" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_items_receipt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:padding="@dimen/dimen_12dp"
+                android:text="@string/checkout_lbl_items_receipt"
+                android:textSize="@dimen/dimen_18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="@string/text_subtotal"
+                        android:textSize="@dimen/dimen_16sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_checkout_sub_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/dimen_16sp"
+                        tools:text="$100" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="@string/text_shipping"
+                        android:textSize="@dimen/dimen_16sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_checkout_shipping_charge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="$10.0"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/dimen_16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="@string/text_total"
+                        android:textSize="@dimen/dimen_16sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_checkout_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/dimen_16sp"
+                        tools:text="$110" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_checkout_place_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/lbl_payment_mode"
+                android:textSize="@dimen/dimen_16sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_payment_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/lbl_cash_on_delivery"
+                android:textAlignment="center"
+                android:textSize="@dimen/dimen_16sp" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_place_order"
+            style="@style/ShopKartButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/text_place_order" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

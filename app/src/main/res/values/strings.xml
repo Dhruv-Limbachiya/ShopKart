@@ -81,4 +81,10 @@
     <string name="text_update">Update</string>
     <string name="title_add_address">Add Address</string>
     <string name="title_edit_address">Edit Address</string>
+    <string name="checkout_lbl_product_items">Product Items</string>
+    <string name="checkout_lbl_selected_address">Selected Address</string>
+    <string name="checkout_lbl_items_receipt">Items Receipt</string>
+    <string name="lbl_payment_mode">Payment Mode</string>
+    <string name="lbl_cash_on_delivery">Cash On Delivery</string>
+    <string name="text_place_order">Place order</string>
 </resources>
