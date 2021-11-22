@@ -15,16 +15,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:fillViewport="true"
             android:scrollbars="none"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ll_checkout_place_order">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,7 +71,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_bold"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_18sp"
                         android:text="@{viewModel.observableAddressType}"
                         tools:text="Home" />
@@ -82,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@{viewModel.observableFullName}"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         tools:text="Dhruv Limbachiya" />
 
@@ -92,7 +90,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@{viewModel.observableAddress}"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         tools:text="XYZ" />
 
@@ -102,7 +99,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@{viewModel.observableAdditionalNote}"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         tools:text="XYZ" />
 
@@ -112,7 +108,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@{viewModel.observableOtherDetails}"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         android:visibility="@{viewModel.observableOtherDetailsVisibility ? View.VISIBLE : View.GONE}"
                         tools:text="XYZ" />
@@ -124,7 +119,6 @@
                         android:layout_marginTop="@dimen/dimen_4dp"
                         android:fontFamily="@font/quicksand_medium"
                         android:text="@{viewModel.observablePhoneNumber}"
-                        android:textColor="@color/item_value_text_color"
                         android:textSize="@dimen/dimen_16sp"
                         tools:text="+91 1234567809" />
 
