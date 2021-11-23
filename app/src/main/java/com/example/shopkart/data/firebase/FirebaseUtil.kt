@@ -273,7 +273,7 @@ class FirebaseUtil {
     }
 
     /**
-     * Check product already exists in Cart Items collection.
+     * Get user cart items.
      */
     fun getCartItems(onResponse: (Resource<List<CartItem>>) -> Unit) {
         firebaseAuth.currentUser?.uid?.let { userId ->
@@ -441,6 +441,9 @@ class FirebaseUtil {
             }
     }
 
+    /**
+     * Method will the stock quantity of product and remove all cart item after placing a successful order.
+     */
     private fun updateProductAndCartDetails(
         cartItems: List<CartItem>,
         onResponse: (Resource<String>) -> Unit
@@ -478,6 +481,40 @@ class FirebaseUtil {
             }
     }
 
+
+    /**
+     * Get the list of order placed by the current user.
+     */
+    fun getMyOrders(onResponse: (Resource<List<Order>>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            onResponse(Resource.Loading())
+            fireStoreDb
+                .collection(ORDER_COLLECTION)
+                .whereEqualTo(ORDER_USER_ID, userId)
+                .get()
+                .addOnSuccessListener {
+                    if (it.documents.size > 0) {
+                        val orders = mutableListOf<Order>()
+
+                        for (doc in it.documents) {
+                            doc.toObject(Order::class.java)?.let { item ->
+                                item.id = doc.id // Add doc id as order item id.
+                                orders.add(item)
+                            }
+                        }
+
+                        onResponse(Resource.Success(orders))
+                    } else {
+                        onResponse(Resource.Error("It seems like you haven't place any order yet!")) // failed to retrieve order for the current user.
+                    }
+
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message)) //
+                }
+        }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PROFILE = "profile_images"
@@ -501,5 +538,6 @@ class FirebaseUtil {
 
         // Order Collection
         const val ORDER_COLLECTION = "orders"
+        const val ORDER_USER_ID = "user_id"
     }
 }

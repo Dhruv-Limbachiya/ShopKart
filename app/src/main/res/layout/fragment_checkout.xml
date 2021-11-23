@@ -246,7 +246,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/quicksand_bold"
                     android:text="@string/lbl_payment_mode"
                     android:textColor="@color/color_dim_gray"
                     android:textSize="@dimen/dimen_16sp" />

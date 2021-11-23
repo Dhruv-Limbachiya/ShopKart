@@ -87,4 +87,5 @@
     <string name="lbl_payment_mode">Payment Mode</string>
     <string name="lbl_cash_on_delivery">Cash On Delivery</string>
     <string name="text_place_order">Place order</string>
+    <string name="text_no_order_placed_yet">No order placed yet!</string>
 </resources>
