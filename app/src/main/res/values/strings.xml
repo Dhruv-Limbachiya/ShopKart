@@ -32,7 +32,7 @@
     <string name="prefGender">gender</string>
     <string name="prefIsProfileCompleted">profileCompleted</string>
     <string name="text_dashboard">Dashboard</string>
-    <string name="text_order">Order</string>
+    <string name="text_order">My Orders</string>
     <string name="text_product">Product</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
@@ -88,4 +88,13 @@
     <string name="lbl_cash_on_delivery">Cash On Delivery</string>
     <string name="text_place_order">Place order</string>
     <string name="text_no_order_placed_yet">No order placed yet!</string>
+    <string name="lbl_order_details">Order Details</string>
+    <string name="text_order_id">Order ID</string>
+    <string name="text_order_date">Order Date</string>
+    <string name="text_order_status">Order Status</string>
+    <string name="title_product_details">Product Detail</string>
+    <string name="title_order_detail">Order Detail</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="status_delivered">Delivered</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.shopkart.data.model.Order
 import com.example.shopkart.databinding.FragmentOrderBinding
 import com.example.shopkart.ui.fragments.base.BaseFragment
@@ -79,6 +80,11 @@ class OrderFragment : BaseFragment() {
             adapter = mAdapter
             if (orders.isNotEmpty()) {
                 mAdapter.submitList(orders)
+            }
+
+            mAdapter.setOnOrderItemClickListener {
+                this.findNavController()
+                    .navigate(OrderFragmentDirections.actionOrderFragmentToOrderDetailFragment(it))
             }
         }
     }

@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class OrderViewModel  @Inject constructor(
+class OrderViewModel @Inject constructor(
     private val firebaseUtil: FirebaseUtil
 ) : BaseViewModel()  {
 

@@ -16,6 +16,16 @@ import com.example.shopkart.databinding.LayoutOrderItemBinding
 class OrderListAdapter :
     ListAdapter<Order, OrderListAdapter.OrderListViewHolder>(OrderItemDiffCallback()) {
 
+    private var onOrderClickListener : ((Order) -> Unit)? = null
+
+    /**
+     * Setter method for onProductClickListener property.
+     */
+    fun setOnOrderItemClickListener(onOrderClickListener : (Order) -> Unit) {
+        this.onOrderClickListener = onOrderClickListener
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListViewHolder {
         return OrderListViewHolder.from(parent)
     }
@@ -23,7 +33,7 @@ class OrderListAdapter :
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: OrderListViewHolder, position: Int) {
         val order = getItem(position) // current product.
-        holder.bind(order)
+        holder.bind(order,onOrderClickListener)
     }
 
     class OrderListViewHolder(val binding: LayoutOrderItemBinding) :
@@ -33,9 +43,14 @@ class OrderListAdapter :
          * Bind views with cart data.
          */
         @RequiresApi(Build.VERSION_CODES.M)
-        fun bind(order: Order?) {
+        fun bind(order: Order?, onOrderClickListener: ((Order) -> Unit)?) {
             order?.let { item ->
                 binding.order = item // assigns product in binding product variable.
+                binding.root.setOnClickListener {
+                    onOrderClickListener?.let { listener ->
+                        listener(order)
+                    }
+                }
             }
         }
 
