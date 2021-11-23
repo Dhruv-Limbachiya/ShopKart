@@ -432,20 +432,63 @@ class FirebaseUtil {
             .document()
             .set(order, SetOptions.merge())
             .addOnSuccessListener {
-                onResponse(Resource.Success("Order placed successfully"))
+                updateProductAndCartDetails(order.items) {
+                    onResponse(it)
+                }
             }
             .addOnFailureListener {
                 onResponse(Resource.Error(it.message))
             }
     }
 
+    private fun updateProductAndCartDetails(
+        cartItems: List<CartItem>,
+        onResponse: (Resource<String>) -> Unit
+    ) {
+        val writeBatch = fireStoreDb.batch()
+
+        for (cartItem in cartItems) {
+            val dataHashMap = hashMapOf<String, Any>()
+
+            // updated value of stock quantity after checkout.
+            dataHashMap[STOCK_QUANTITY] =
+                (cartItem.stock_quantity.toInt() - cartItem.cart_quantity.toInt()).toString() // Subtract the cart quantity with the product total stock quantity.
+
+            val productsReference = fireStoreDb
+                .collection(PRODUCT_COLLECTION)
+                .document(cartItem.productId) // Reference an individual product in products collection.
+
+            writeBatch.update(
+                productsReference,
+                dataHashMap
+            ) // updates the stock quantity of product.
+        }
+
+        for (cartItem in cartItems) {
+            val cartItemsReference =
+                fireStoreDb.collection(CART_ITEM_COLLECTION).document(cartItem.id)
+            writeBatch.delete(cartItemsReference) // Deletes the cart item after placing an order.
+        }
+
+        writeBatch.commit()
+            .addOnSuccessListener {
+                onResponse(Resource.Success("Your order placed successfully"))
+            }.addOnFailureListener {
+                onResponse(Resource.Error("Failed to update product and cart details."))
+            }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
-        const val PRODUCT_COLLECTION = "products"
         const val PROFILE = "profile_images"
-        const val PRODUCTS = "products"
         const val TAG = "FirebaseUtil"
         const val USER_ID = "user_id"
+
+        // Product collection and its fields
+        const val PRODUCTS = "products"
+        const val PRODUCT_COLLECTION = "products"
+        const val STOCK_QUANTITY = "stock_quantity"
+
 
         // Cart collection and its fields
         const val CART_ITEM_COLLECTION = "cart_items"
