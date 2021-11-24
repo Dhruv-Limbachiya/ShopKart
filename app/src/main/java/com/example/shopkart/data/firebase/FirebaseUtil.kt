@@ -8,6 +8,7 @@ import com.example.shopkart.util.Resource
 import com.example.shopkart.util.getExtension
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -432,7 +433,7 @@ class FirebaseUtil {
             .document()
             .set(order, SetOptions.merge())
             .addOnSuccessListener {
-                updateProductAndCartDetails(order.items) {
+                updateProductAndCartDetails(order) {
                     onResponse(it)
                 }
             }
@@ -445,12 +446,12 @@ class FirebaseUtil {
      * Method will the stock quantity of product and remove all cart item after placing a successful order.
      */
     private fun updateProductAndCartDetails(
-        cartItems: List<CartItem>,
+        order: Order,
         onResponse: (Resource<String>) -> Unit
     ) {
         val writeBatch = fireStoreDb.batch()
 
-        for (cartItem in cartItems) {
+        for (cartItem in order.items) {
             val dataHashMap = hashMapOf<String, Any>()
 
             // updated value of stock quantity after checkout.
@@ -465,9 +466,11 @@ class FirebaseUtil {
                 productsReference,
                 dataHashMap
             ) // updates the stock quantity of product.
+
+            addSoldProductInFirestore(cartItem, order, writeBatch)
         }
 
-        for (cartItem in cartItems) {
+        for (cartItem in order.items) {
             val cartItemsReference =
                 fireStoreDb.collection(CART_ITEM_COLLECTION).document(cartItem.id)
             writeBatch.delete(cartItemsReference) // Deletes the cart item after placing an order.
@@ -479,6 +482,35 @@ class FirebaseUtil {
             }.addOnFailureListener {
                 onResponse(Resource.Error("Failed to update product and cart details."))
             }
+    }
+
+    /**
+     * Add the sold product details in Firestore db.
+     */
+    private fun addSoldProductInFirestore(
+        cartItem: CartItem,
+        order: Order,
+        writeBatch: WriteBatch
+    ) {
+        val soldProduct = SoldProduct(
+            cartItem.productOwnerId,
+            cartItem.title,
+            cartItem.price,
+            cartItem.cart_quantity,
+            cartItem.image,
+            order.id,
+            order.orderDateTime,
+            order.sub_total_amount,
+            order.shipping_charge,
+            order.total_amount,
+            order.address,
+        )
+
+        val soldProductReference = fireStoreDb
+            .collection(SOLD_PRODUCT_COLLECTION)
+            .document(cartItem.productId)
+
+        writeBatch.set(soldProductReference, soldProduct, SetOptions.merge())
     }
 
 
@@ -526,7 +558,6 @@ class FirebaseUtil {
         const val PRODUCT_COLLECTION = "products"
         const val STOCK_QUANTITY = "stock_quantity"
 
-
         // Cart collection and its fields
         const val CART_ITEM_COLLECTION = "cart_items"
         const val CART_PRODUCT_ID = "productId"
@@ -539,5 +570,8 @@ class FirebaseUtil {
         // Order Collection
         const val ORDER_COLLECTION = "orders"
         const val ORDER_USER_ID = "user_id"
+
+        // Sold Product Collection
+        const val SOLD_PRODUCT_COLLECTION = "sold_products"
     }
 }

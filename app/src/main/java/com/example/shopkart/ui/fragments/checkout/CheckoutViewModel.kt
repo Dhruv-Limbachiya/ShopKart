@@ -141,7 +141,7 @@ class CheckoutViewModel @Inject constructor(
             val order = Order(
                 it,
                 cartItems as ArrayList<CartItem>,
-                address,
+                address ?: Address(),
                 "My order ${System.currentTimeMillis()}",
                 cartItems[0].image,
                 observableSubTotal.trimmed,
