@@ -88,7 +88,8 @@ class SoldProductFragment : BaseFragment() {
             }
 
             mAdapter.setOnSoldProductItemClickListener {
-
+                this.findNavController()
+                    .navigate(SoldProductFragmentDirections.actionSoldProductFragmentToSoldProductDetailFragment(it))
             }
         }
     }

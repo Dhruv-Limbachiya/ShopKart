@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.example.shopkart.ui.fragments.add_product.AddProductFragment"
-        android:label="Add Product"
+        android:label="@string/title_add_product"
         tools:layout="@layout/fragment_add_product"/>
 
     <fragment
@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.example.shopkart.ui.fragments.my_address.MyAddressFragment"
-        android:label="My Address"
+        android:label="@string/title_my_address"
         tools:layout="@layout/fragment_my_address">
         <action
             android:id="@+id/action_addressFragment_to_addressDetailFragment"
@@ -128,7 +128,7 @@
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="com.example.shopkart.ui.fragments.checkout.CheckoutFragment"
-        android:label="Checkout"
+        android:label="@string/title_checkout"
         tools:layout="@layout/fragment_checkout">
 
         <argument
@@ -149,9 +149,22 @@
     <fragment
         android:id="@+id/soldProductFragment"
         android:name="com.example.shopkart.ui.fragments.sold_product.SoldProductFragment"
-        android:label="Sold Products"
-        tools:layout="@layout/fragment_sold_product"
-        />
+        android:label="@string/title_sold_products"
+        tools:layout="@layout/fragment_sold_product">
+        <action
+            android:id="@+id/action_soldProductFragment_to_soldProductDetailFragment"
+            app:destination="@id/soldProductDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/soldProductDetailFragment"
+        android:name="com.example.shopkart.ui.fragments.sold_prouct_detail.SoldProductDetailFragment"
+        android:label="@string/title_sold_product_detail"
+        tools:layout="@layout/fragment_sold_product_detail">
+        <argument
+            android:name="product"
+            app:argType="com.example.shopkart.data.model.SoldProduct" />
+    </fragment>
 
 
     <action
@@ -165,6 +178,5 @@
     <action
         android:id="@+id/action_global_dashboard"
         app:destination="@id/dashboardFragment" />
-
 
 </navigation>

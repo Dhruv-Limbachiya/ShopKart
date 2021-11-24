@@ -99,4 +99,9 @@
     <string name="status_delivered">Delivered</string>
     <string name="text_no_product_sold_yet">No product sold yet!</string>
     <string name="text_sold">Sold</string>
+    <string name="title_sold_product_detail">Sold Product Detail</string>
+    <string name="title_sold_products">Sold Products</string>
+    <string name="title_checkout">Checkout</string>
+    <string name="title_my_address">My Address</string>
+    <string name="title_add_product">Add Product</string>
 </resources>

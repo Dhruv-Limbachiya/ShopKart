@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.shopkart.ui.fragments.order_detail.OrderDetailViewModel" />
+            type="com.example.shopkart.ui.fragments.sold_prouct_detail.SoldProductDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,12 +119,82 @@
                         android:text="@string/checkout_lbl_product_items"
                         android:textSize="@dimen/dimen_18sp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_cart_list_items"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/layout_order_item" />
+                        android:layout_marginHorizontal="@dimen/dimen_6dp"
+                        app:cardCornerRadius="@dimen/dimen_4dp"
+                        app:cardElevation="@dimen/dimen_6dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="@dimen/dimen_8dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/iv_order_image_layout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/product_image_placeholder_color"
+                                tools:ignore="MissingConstraints">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/iv_order_item_image"
+                                    android:layout_width="@dimen/dimen_100dp"
+                                    android:layout_height="@dimen/dimen_100dp"
+                                    android:adjustViewBounds="true"
+                                    android:padding="12dp"
+                                    android:scaleType="centerCrop"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:setImageUrl="@{viewModel.observableProductImage}"
+                                    app:setPlaceholder="@{@drawable/ic_cart}"
+                                    tools:src="@drawable/ic_cart" />
+
+                            </LinearLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_8dp"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_order_image_layout"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <TextView
+                                    android:id="@+id/iv_cart_item_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/quicksand_bold"
+                                    android:text="@{viewModel.observableProductTitle}"
+                                    android:textColor="@color/item_value_text_color"
+                                    android:textSize="@dimen/dimen_18sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="Shoes" />
+
+                                <TextView
+                                    android:id="@+id/iv_product_item_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dimen_4dp"
+                                    android:fontFamily="@font/quicksand_medium"
+                                    android:text="@{String.format(@string/product_price,viewModel.observableProductTotalPrice)}"
+                                    android:textColor="@color/item_value_text_color"
+                                    android:textSize="@dimen/dimen_16sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/iv_cart_item_title"
+                                    tools:text="20" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_selected_address"
