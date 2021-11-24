@@ -498,7 +498,7 @@ class FirebaseUtil {
             cartItem.price,
             cartItem.cart_quantity,
             cartItem.image,
-            order.id,
+            order.title,
             order.orderDateTime,
             order.sub_total_amount,
             order.shipping_charge,
@@ -510,7 +510,7 @@ class FirebaseUtil {
             .collection(SOLD_PRODUCT_COLLECTION)
             .document(cartItem.productId)
 
-        writeBatch.set(soldProductReference, soldProduct, SetOptions.merge())
+        writeBatch.set(soldProductReference, soldProduct)
     }
 
 
@@ -547,6 +547,39 @@ class FirebaseUtil {
         }
     }
 
+    /**
+     * Get the list of sold product.
+     */
+    fun getMySoldProducts(onResponse: (Resource<List<SoldProduct>>) -> Unit) {
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            onResponse(Resource.Loading())
+            fireStoreDb
+                .collection(SOLD_PRODUCT_COLLECTION)
+                .whereEqualTo(SOLD_PRODUCT_USER_ID, userId)
+                .get()
+                .addOnSuccessListener {
+                    if (it.documents.size > 0) {
+                        val products = mutableListOf<SoldProduct>()
+
+                        for (doc in it.documents) {
+                            doc.toObject(SoldProduct::class.java)?.let { item ->
+                                item.id = doc.id // Add doc id as order item id.
+                                products.add(item)
+                            }
+                        }
+
+                        onResponse(Resource.Success(products))
+                    } else {
+                        onResponse(Resource.Error("It seems like you haven't sold any product yet!")) // failed to retrieve sold product.
+                    }
+
+                }
+                .addOnFailureListener {
+                    onResponse(Resource.Error(it.message))
+                }
+        }
+    }
+
     companion object {
         const val USER_COLLECTION = "users"
         const val PROFILE = "profile_images"
@@ -573,5 +606,6 @@ class FirebaseUtil {
 
         // Sold Product Collection
         const val SOLD_PRODUCT_COLLECTION = "sold_products"
+        const val SOLD_PRODUCT_USER_ID = "user_id"
     }
 }

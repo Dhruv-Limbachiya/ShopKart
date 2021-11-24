@@ -8,7 +8,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_orders"
+            android:id="@+id/rv_sold_products"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -19,8 +19,8 @@
             tools:listitem="@layout/layout_cart_item" />
 
         <TextView
-            android:id="@+id/tv_no_orders_found"
-            android:text="@string/text_no_order_placed_yet"
+            android:id="@+id/tv_no_product_sold_yet"
+            android:text="@string/text_no_product_sold_yet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

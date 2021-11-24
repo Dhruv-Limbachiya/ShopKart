@@ -97,4 +97,6 @@
     <string name="status_pending">Pending</string>
     <string name="status_in_progress">In Progress</string>
     <string name="status_delivered">Delivered</string>
+    <string name="text_no_product_sold_yet">No product sold yet!</string>
+    <string name="text_sold">Sold</string>
 </resources>

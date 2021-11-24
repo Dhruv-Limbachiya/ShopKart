@@ -47,7 +47,7 @@ class DashboardActivity : BaseActivity() {
         // Configure App bar by specifying all top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.dashboardFragment, R.id.productFragment, R.id.orderFragment
+                R.id.dashboardFragment, R.id.productFragment, R.id.orderFragment , R.id.soldProductFragment
             )
         )
 
@@ -71,9 +71,9 @@ class DashboardActivity : BaseActivity() {
 
                 R.id.profileFragment -> {
                     // Displays Complete Profile if user haven't completed all the profile details.
-                    if (isProfileCompleted == 0) {
-                    } else {
-                    }
+//                    if (isProfileCompleted == 0) {
+//                    } else {
+//                    }
 
                     hideBottomBar()
                 }

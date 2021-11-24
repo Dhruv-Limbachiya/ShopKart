@@ -146,6 +146,14 @@
             app:argType="com.example.shopkart.data.model.Order" />
     </fragment>
 
+    <fragment
+        android:id="@+id/soldProductFragment"
+        android:name="com.example.shopkart.ui.fragments.sold_product.SoldProductFragment"
+        android:label="Sold Products"
+        tools:layout="@layout/fragment_sold_product"
+        />
+
+
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment" />

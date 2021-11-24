@@ -22,6 +22,7 @@
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_registration.xml" value="0.3094736842105263" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/activity_splash.xml" value="0.15" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_Sold_product.xml" value="0.153125" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_add_product.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_address.xml" value="0.153125" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_address_detail.xml" value="0.14" />
@@ -36,12 +37,16 @@
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_product_detail.xml" value="0.4939759036144578" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_setting.xml" value="0.2" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_sold_product.xml" value="0.153125" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/fragment_sold_product_detail.xml" value="0.153125" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_address_item.xml" value="0.18" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_cart_item.xml" value="0.18" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_dashboard_item.xml" value="0.1" />
-        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_order_item.xml" value="0.153125" />
-        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_product_item.xml" value="0.153125" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_order_item.xml" value="0.1" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_product_item.xml" value="0.11" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/layout_sold_product_item.xml" value="0.153125" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/layout/progressbar_dialog_layout.xml" value="0.25" />
+        <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/menu/bottom_nav_menu.xml" value="0.153125" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/menu/main_menu.xml" value="0.1361111111111111" />
         <entry key="..\:/Users/Dhruv Limbachiya/AndroidStudioProjects/ShopKart/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
