@@ -9,6 +9,7 @@ package com.example.shopkart.data.model
  */
 data class CartItem(
     var userId: String? = "",
+    var productOwnerId: String = "",
     var productId: String = "",
     var title: String = "",
     var price: String = "",

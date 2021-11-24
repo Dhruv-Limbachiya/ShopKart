@@ -31,7 +31,7 @@ class ProductDetailFragment : BaseFragment() {
     @Inject
     lateinit var mSharePreference: SharePreferenceUtil
 
-    private lateinit var userId: String
+    private lateinit var mProductOwnerId: String
 
     private lateinit var product: Product
 
@@ -53,7 +53,7 @@ class ProductDetailFragment : BaseFragment() {
         // Retrieve product id from the bundle.
         productId = ProductDetailFragmentArgs.fromBundle(requireArguments()).productId
 
-        userId = ProductDetailFragmentArgs.fromBundle(requireArguments()).userId
+        mProductOwnerId = ProductDetailFragmentArgs.fromBundle(requireArguments()).productOwnerId
 
         // Get product details based on product id.
         mViewModel.getProductDetails(productId)
@@ -72,6 +72,7 @@ class ProductDetailFragment : BaseFragment() {
 
             val cartItem = CartItem(
                 mSharePreference.getString(R.string.prefUserId),
+                mProductOwnerId,
                 productId,
                 product.title,
                 product.price,
@@ -159,7 +160,7 @@ class ProductDetailFragment : BaseFragment() {
      *  Case 2 : If the product is not owned by the current user.
      */
     private fun buttonVisibility() {
-        if(!cartItemExist && userId != mSharePreference.getString(R.string.prefUserId) && !mViewModel.observableOutOfStock.get()) {
+        if(!cartItemExist && mProductOwnerId != mSharePreference.getString(R.string.prefUserId) && !mViewModel.observableOutOfStock.get()) {
             mViewModel.observableAddToCartButtonVisible.set(true)
             mViewModel.observableGoToCartVisible.set(false)
         } else if(cartItemExist) {

@@ -58,7 +58,7 @@
             android:name="productId"
             app:argType="string" />
         <argument
-            android:name="userId"
+            android:name="productOwnerId"
             app:argType="string" />
         <action
             android:id="@+id/action_productDetailFragment_to_cartListFragment"
